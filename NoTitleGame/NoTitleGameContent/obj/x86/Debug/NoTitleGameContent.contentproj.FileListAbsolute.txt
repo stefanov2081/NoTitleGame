@@ -1,0 +1,1 @@
+c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGameContent\obj\x86\Debug\NoTitleGameContent.contentprojResolveAssemblyReference.cache

@@ -1,0 +1,8 @@
+c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\NoTitleGame.exe
+c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\NoTitleGame.pdb
+c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\NoTitleGame.csprojResolveAssemblyReference.cache
+c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\NoTitleGame.exe
+c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\NoTitleGame.pdb
+c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\background.xnb
+C:\Users\mandjah\Documents\Visual Studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\ground.xnb
