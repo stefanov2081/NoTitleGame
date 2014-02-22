@@ -1,7 +1,7 @@
-using System;
 
 namespace NoTitleGame
 {
+    using System;
 #if WINDOWS || XBOX
     static class Program
     {

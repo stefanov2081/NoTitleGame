@@ -1,11 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NoTitleGame
+﻿namespace NoTitleGame
 {
+    using Microsoft.Xna.Framework;
     class GameWorld
     {
         // Fields for the dimensions of the game world

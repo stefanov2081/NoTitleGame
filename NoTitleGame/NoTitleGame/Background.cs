@@ -1,11 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NoTitleGame
+﻿namespace NoTitleGame
 {
+    using Microsoft.Xna.Framework.Graphics;
     class Background : GameWorld
     {
         // Default background sprite

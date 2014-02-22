@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NoTitleGame
+﻿namespace NoTitleGame
 {
+    using System;
     class Terrain : GameWorld
     {
         // Store the y values of the terrain contour

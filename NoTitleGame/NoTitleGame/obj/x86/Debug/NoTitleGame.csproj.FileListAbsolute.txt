@@ -6,3 +6,11 @@ c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGam
 c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\NoTitleGame.pdb
 c:\users\mandjah\documents\visual studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\background.xnb
 C:\Users\mandjah\Documents\Visual Studio 2012\XNAProjects\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\ground.xnb
+E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\NoTitleGame.csprojResolveAssemblyReference.cache
+E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\NoTitleGame.exe
+E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\NoTitleGame.pdb
+E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\background.xnb
+E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\ground.xnb
+E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\NoTitleGame.exe
+E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\NoTitleGame.pdb
