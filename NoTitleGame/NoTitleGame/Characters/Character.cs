@@ -6,7 +6,7 @@
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     
-    class Character : GameObject, IAnimate, IMoveable
+    public abstract class Character : GameObject, IAnimate, IMoveable
     {
         // Default terrain sprite
         private Texture2D characterTexture;
