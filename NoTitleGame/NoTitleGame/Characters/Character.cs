@@ -4,8 +4,9 @@
     using NoTitleGame;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
     
-    class Character : GameObject, IAnimate
+    class Character : GameObject, IAnimate, IMoveable
     {
         // Default terrain sprite
         private Texture2D characterTexture;
@@ -20,6 +21,11 @@
         private int level;          //self-explanatory
         private int experience;     //needed for leveling
         //private bool isAlive; //no need for a field it's only a property
+        
+        //Variables needed for jumping
+        private int startY;         //Starting position for the jump
+        private bool isJumping;     //Determines wether the char is jumping
+        private int jumpspeed;      //How fast the char jumps
 
         // IAnimate automatic fields
         public int frames { get; set; }
@@ -79,9 +85,24 @@
             get { return this.experience; }
             set { this.experience = value; }
         }
+        public int StartY
+        {
+            get { return this.startY; }
+            set { this.startY = value; }
+        }
+        public int Jumpspeed
+        {
+            get { return this.jumpspeed; }
+            set { this.jumpspeed = value; }
+        }
         public bool IsAlive
         {
             get { return this.health > 0; }
+        }
+        public bool IsJumping
+        {
+            get { return this.isJumping; }
+            set { this.isJumping = value; }
         }
 
         //Methods
@@ -125,7 +146,7 @@
 
         //Constructor
         public Character(int positionX, int positionY, string name, int strength, int agility,
-                         int shield, int intelligence, int level, int experience)
+                         int intelligence, int shield, int level, int experience)
             : base(positionX, positionY, name)
         {
             //Setting main stats
@@ -147,7 +168,54 @@
             this.facingRight = true;
             this.elapsed = 0;
             this.frames = 0;
+
+            //Jump-related
+            this.StartY = this.PositionY;
+            this.IsJumping = false;
+            this.Jumpspeed = 0;
         }
         //Constructor---
+
+        //Moving the character
+        public void Move()
+        {
+            KeyboardState keybState = Keyboard.GetState();
+
+            //Move left
+            if (keybState.IsKeyDown(Keys.Left))
+            {
+                this.PositionX -= 5;
+            }
+            
+            //Move right
+            if (keybState.IsKeyDown(Keys.Right))
+            {
+                this.PositionX += 5;
+            }
+
+            //Jumping
+            if (this.IsJumping)
+            {
+                this.PositionY += this.jumpspeed;   //Make the char go up
+                this.jumpspeed += 1;                //Needed for the character to fall down
+                if (this.PositionY >= this.startY)
+                //If the char is farther than ground
+                {
+                    this.PositionY = this.startY;//Then set it on the ground
+                    this.IsJumping = false;
+                }
+
+            }
+
+            else
+            {
+                if (keybState.IsKeyDown(Keys.Up))
+                {
+                    this.IsJumping = true;
+                    this.jumpspeed = -14;       //Give the char an upward thrust
+                    this.StartY = this.PositionY;
+                }
+            }
+        }
     }
 }

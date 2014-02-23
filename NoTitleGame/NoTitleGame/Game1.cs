@@ -116,6 +116,10 @@ namespace NoTitleGame
                 this.Exit();
 
             darthVader.AnimateCharacterIdle(200.0f, gameTime);
+            
+            // Is called without conditions due to the jumping
+            darthVader.Move(); 
+            
 
             base.Update(gameTime);
         }
