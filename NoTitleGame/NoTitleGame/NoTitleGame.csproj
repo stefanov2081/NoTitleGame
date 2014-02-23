@@ -80,6 +80,7 @@
     <Compile Include="Foreground.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="IAnimate.cs" />
     <Compile Include="IMoveable.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="Characters\Initiate.cs" />

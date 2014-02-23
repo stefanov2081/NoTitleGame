@@ -8,7 +8,7 @@
         private Texture2D groundTexture;
         // Stores the generated foreground
         private Texture2D generatedForeground;
-        // Colour matrix
+        // ICollidable colour matrix
         private Color[,] foregrounColourArray;
 
         // Default constructor
@@ -30,7 +30,7 @@
             set { this.generatedForeground = value; }
         }
 
-        // Colour matrix
+        // ICollidable colour matrix
         public Color[,] colourArray
         {
             get { return this.foregrounColourArray; }

@@ -3,6 +3,8 @@ namespace NoTitleGame
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using Characters;
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -23,6 +25,9 @@ namespace NoTitleGame
 
         // Declare foreground
         Foreground foreground;
+
+        // Declare test character
+        Character darthVader;
         
 
         GraphicsDeviceManager graphics;
@@ -80,6 +85,14 @@ namespace NoTitleGame
             foreground = new Foreground(world.Width, world.Height);
             foreground.GroundTexture = Content.Load<Texture2D>("ground");
             foreground.CreateForeground();
+
+            // Load test character
+            darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 1, 0);
+            darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
+            darthVader.scale = 5.0f;
+            //darthVader.sourceRect = new Rectangle(0, 10, 58, 55);
+            darthVader.SetOnRadnomPosition();
+
         }
 
         /// <summary>
@@ -102,7 +115,7 @@ namespace NoTitleGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            darthVader.AnimateCharacterIdle(200.0f, gameTime);
 
             base.Update(gameTime);
         }
@@ -116,8 +129,13 @@ namespace NoTitleGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+            // Draw background
             spriteBatch.Draw(background.BackgroundTexture, world.GameWorldDimensions, Color.White);
+            // Draw foreground
             spriteBatch.Draw(foreground.GeneratedForeground, world.GameWorldDimensions, Color.White);
+            // Draw test character
+            spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.sourceRect, Color.White, 0, 
+                new Vector2(55 / 2, 58), darthVader.scale, SpriteEffects.None, 0);
             spriteBatch.End();
 
             base.Draw(gameTime);

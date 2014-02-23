@@ -1,8 +1,11 @@
 ﻿namespace Characters
 {
+    using System;
     using NoTitleGame;
+    using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    class Character : GameObject
+    
+    class Character : GameObject, IAnimate
     {
         // Default terrain sprite
         private Texture2D characterTexture;
@@ -17,6 +20,13 @@
         private int level;          //self-explanatory
         private int experience;     //needed for leveling
         //private bool isAlive; //no need for a field it's only a property
+
+        // IAnimate automatic fields
+        public int frames { get; set; }
+        public float elapsed { get; set; }
+        public float scale { get; set; }
+        public bool facingRight { get; set; }
+        public Rectangle sourceRect { get; set; }
 
         //Properties
         public Texture2D CharacterTexture
@@ -75,6 +85,44 @@
         }
 
         //Methods
+        // Set the character on random position
+        public void SetOnRadnomPosition()
+        {
+            Random rand = new Random();
+
+            this.PositionX = rand.Next(0, Terrain.terrainContour.Length);
+            this.PositionY = Terrain.terrainContour[PositionX];
+        }
+
+        // Animate character when idle
+        public void AnimateCharacterIdle(float delay, GameTime gameTime = null)
+        {
+            this.elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (this.elapsed >= delay)
+            {
+                if (this.frames >= 3)
+                {
+                    this.frames = 0;
+                }
+                else
+                {
+                    this.frames++;
+                }
+
+                this.elapsed = 0;
+            }
+
+            if (facingRight)
+            {
+                this.sourceRect = new Rectangle(58 * frames, 10, 58, 55);
+            }
+            else
+            {
+                this.sourceRect = new Rectangle(232 + 58 * frames, 10, 58, 55);
+            }
+        }
+
         //Constructor
         public Character(int positionX, int positionY, string name, int strength, int agility,
                          int shield, int intelligence, int level, int experience)
@@ -83,8 +131,8 @@
             //Setting main stats
             this.Strength = strength;
             this.Agility = agility;
-            this.Shield = shield;
             this.Intelligence = intelligence;
+            this.Shield = shield;
 
             //Setting dependables
             this.Health = this.Strength * 2;
@@ -94,6 +142,11 @@
             //Level-related
             this.Experience = experience;
             this.Level = level;
+
+            // Animation-related
+            this.facingRight = true;
+            this.elapsed = 0;
+            this.frames = 0;
         }
         //Constructor---
     }
