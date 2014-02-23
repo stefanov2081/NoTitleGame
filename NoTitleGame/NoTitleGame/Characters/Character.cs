@@ -23,7 +23,6 @@
         //private bool isAlive; //no need for a field it's only a property
         
         //Variables needed for jumping
-        private int startY;         //Starting position for the jump
         private bool isJumping;     //Determines wether the char is jumping
         private int jumpspeed;      //How fast the char jumps
 
@@ -84,11 +83,6 @@
         {
             get { return this.experience; }
             set { this.experience = value; }
-        }
-        public int StartY
-        {
-            get { return this.startY; }
-            set { this.startY = value; }
         }
         public int Jumpspeed
         {
@@ -170,7 +164,6 @@
             this.frames = 0;
 
             //Jump-related
-            this.StartY = this.PositionY;
             this.IsJumping = false;
             this.Jumpspeed = 0;
         }
@@ -185,12 +178,20 @@
             if (keybState.IsKeyDown(Keys.Left))
             {
                 this.PositionX -= 5;
+                if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
+                {
+                    this.PositionY = Terrain.terrainContour[(int)this.PositionX];
+                }
             }
             
             //Move right
             if (keybState.IsKeyDown(Keys.Right))
             {
                 this.PositionX += 5;
+                if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
+                {
+                    this.PositionY = Terrain.terrainContour[(int)this.PositionX];
+                }
             }
 
             //Jumping
@@ -198,10 +199,10 @@
             {
                 this.PositionY += this.jumpspeed;   //Make the char go up
                 this.jumpspeed += 1;                //Needed for the character to fall down
-                if (this.PositionY >= this.startY)
+                if (this.PositionY >= Terrain.terrainContour[(int)this.PositionX])
                 //If the char is farther than ground
                 {
-                    this.PositionY = this.startY;//Then set it on the ground
+                    this.PositionY = Terrain.terrainContour[(int)this.PositionX];//Then set it on the ground
                     this.IsJumping = false;
                 }
 
@@ -213,7 +214,6 @@
                 {
                     this.IsJumping = true;
                     this.jumpspeed = -14;       //Give the char an upward thrust
-                    this.StartY = this.PositionY;
                 }
             }
         }
