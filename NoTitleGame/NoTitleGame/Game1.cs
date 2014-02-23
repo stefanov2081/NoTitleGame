@@ -28,7 +28,9 @@ namespace NoTitleGame
 
         // Declare test character
         Character darthVader;
-        
+
+        // Declare camera
+        Camera camera;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -43,6 +45,9 @@ namespace NoTitleGame
             graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen = false;
             graphics.ApplyChanges();
+
+            // Enable mouse
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -90,9 +95,10 @@ namespace NoTitleGame
             darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 1, 0);
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
             darthVader.scale = 5.0f;
-            //darthVader.sourceRect = new Rectangle(0, 10, 58, 55);
             darthVader.SetOnRadnomPosition();
 
+            // Load camera
+            camera = new Camera(GraphicsDevice.Viewport);
         }
 
         /// <summary>
@@ -118,8 +124,10 @@ namespace NoTitleGame
             darthVader.AnimateCharacterIdle(200.0f, gameTime);
             
             // Is called without conditions due to the jumping
-            darthVader.Move(); 
-            
+            darthVader.Move();
+
+            camera.Update(new Vector2(darthVader.PositionX, darthVader.PositionY));
+            camera.UpdateCameraPosition(new Vector2(darthVader.PositionX, darthVader.PositionY));
 
             base.Update(gameTime);
         }
@@ -132,7 +140,7 @@ namespace NoTitleGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
             // Draw background
             spriteBatch.Draw(background.BackgroundTexture, world.GameWorldDimensions, Color.White);
             // Draw foreground
