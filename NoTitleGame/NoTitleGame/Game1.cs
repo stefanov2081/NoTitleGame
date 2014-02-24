@@ -95,9 +95,10 @@ namespace NoTitleGame
             // Load test character
             darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 1, 0);
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
-            darthVader.JumpSound = Content.Load<SoundEffect>("jump_jack_03");
+            darthVader.JumpSound = Content.Load<SoundEffect>("jump");
             darthVader.scale = 1.0f;
             darthVader.SetOnRadnomPosition();
+
             // Load camera
             camera = new Camera(GraphicsDevice.Viewport);
         }

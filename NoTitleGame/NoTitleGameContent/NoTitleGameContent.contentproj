@@ -52,8 +52,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="jump_jack_03.wav">
-      <Name>jump_jack_03</Name>
+    <Compile Include="jump.wav">
+      <Name>jump</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
