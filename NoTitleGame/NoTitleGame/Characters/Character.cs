@@ -7,8 +7,9 @@
     using Microsoft.Xna.Framework.Input;
     using System.Collections.Generic;
     using ActiveItems;
+    using Microsoft.Xna.Framework.Audio;
     
-    public abstract class Character : GameObject, IAnimate, IMoveable
+    public abstract class Character : GameObject, IAnimate, IMoveable, ISound
     {
         //CONSTANTS
         private const int DEFAULT_NUMBER_OF_BAZOOKAS = 1;
@@ -16,6 +17,9 @@
 
         // Default terrain sprite
         private Texture2D characterTexture;
+        // Sounds
+        private SoundEffect jumpSound;
+
         //Fields
         private int strength;                   //affects health
         private int health;                     //health pounts    5 strength = 10 health
@@ -45,11 +49,20 @@
         public bool facingRight { get; set; }
         public Rectangle sourceRect { get; set; }
 
+        // Keyboart state fields
+        private KeyboardState keybState;
+        private KeyboardState previousKeyboardState;
+
         //Properties
         public Texture2D CharacterTexture
         {
             get { return this.characterTexture; }
             set { this.characterTexture = value; }
+        }
+        public SoundEffect JumpSound
+        {
+            get { return this.jumpSound; }
+            set { this.jumpSound = value; }
         }
         public int Strength 
         {
@@ -304,19 +317,27 @@
             }
         }
 
+        // Play sound
+        public void PlaySound(SoundEffect sound)
+        {
+            sound.Play();
+        }
+
         //Moving the character
         public void Move()
         {
-            KeyboardState keybState = Keyboard.GetState();
+            // We will need this for later, when fireing weapons
+            this.previousKeyboardState = keybState;
+            this.keybState = Keyboard.GetState();
 
             // Idle
-            if (keybState.GetPressedKeys().Length == 0 && !IsJumping)
+            if (this.keybState.GetPressedKeys().Length == 0 && !IsJumping)
             {
                 this.idle = true;
                 this.running = false;
             }
             //Move left
-            if (keybState.IsKeyDown(Keys.Left))
+            if (this.keybState.IsKeyDown(Keys.Left))
             {
                 this.idle = false;
                 this.facingRight = false;
@@ -334,7 +355,7 @@
             }
             
             //Move right
-            if (keybState.IsKeyDown(Keys.Right))
+            if (this.keybState.IsKeyDown(Keys.Right))
             {
                 this.idle = false;
                 this.facingRight = true;
@@ -369,8 +390,9 @@
 
             else
             {
-                if (keybState.IsKeyDown(Keys.Up))
+                if (this.keybState.IsKeyDown(Keys.Up))
                 {
+                    PlaySound(JumpSound);
                     this.IsJumping = true;
                     this.jumpspeed = -14;       //Give the char an upward thrust
                 }

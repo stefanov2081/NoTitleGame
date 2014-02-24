@@ -4,6 +4,7 @@ namespace NoTitleGame
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Characters;
+    using Microsoft.Xna.Framework.Audio;
 
     /// <summary>
     /// This is the main type for your game
@@ -94,6 +95,7 @@ namespace NoTitleGame
             // Load test character
             darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 1, 0);
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
+            darthVader.JumpSound = Content.Load<SoundEffect>("jump_jack_03");
             darthVader.scale = 1.0f;
             darthVader.SetOnRadnomPosition();
             // Load camera

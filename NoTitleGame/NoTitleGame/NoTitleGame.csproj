@@ -85,6 +85,7 @@
     <Compile Include="IMoveable.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="Characters\Initiate.cs" />
+    <Compile Include="ISound.cs" />
     <Compile Include="Items\ActiveItems\ActiveItem.cs" />
     <Compile Include="Items\ActiveItems\Bazooka.cs" />
     <Compile Include="Items\ActiveItems\ActiveItemEnumeration.cs" />
