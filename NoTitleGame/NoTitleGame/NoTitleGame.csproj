@@ -87,6 +87,7 @@
     <Compile Include="Characters\Initiate.cs" />
     <Compile Include="Items\ActiveItems\ActiveItem.cs" />
     <Compile Include="Items\ActiveItems\Bazooka.cs" />
+    <Compile Include="Items\ActiveItems\ActiveItemEnumeration.cs" />
     <Compile Include="Items\ActiveItems\Shotgun.cs" />
     <Compile Include="Items\BonusItems\BonusEnumeration.cs" />
     <Compile Include="Items\BonusItems\BonusItem.cs" />

@@ -2,8 +2,6 @@
 {
     class Bazooka : ActiveItem
     {
-        //Should default damage for bazooka be set here..?
-        public Bazooka(int positionX, int positionY, string name, int damage) : base(positionX, positionY, name, damage) { }
-        
+        public Bazooka(int positionX, int positionY) : base(positionX, positionY, "Bazooka", DAMAGE_DONE_BY_BAZOOKA) { }
     }
 }

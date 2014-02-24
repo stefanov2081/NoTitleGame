@@ -2,8 +2,7 @@
 {
     class Shotgun : ActiveItem
     {
-        //Should default damage for the shotgun be set here..?
-        public Shotgun(int positionX, int positionY, string name, int damage) : base(positionX, positionY, name, damage) { }
+        public Shotgun(int positionX, int positionY) : base(positionX, positionY, "Shotgun", DAMAGE_DONE_BY_SHOTGUN) { }
 
     }
 }

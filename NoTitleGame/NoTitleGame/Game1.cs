@@ -96,7 +96,6 @@ namespace NoTitleGame
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
             darthVader.scale = 1.0f;
             darthVader.SetOnRadnomPosition();
-
             // Load camera
             camera = new Camera(GraphicsDevice.Viewport);
         }
@@ -125,6 +124,9 @@ namespace NoTitleGame
             
             // Is called without conditions due to the jumping
             darthVader.Move();
+            // Move the inventory with the character
+            darthVader.UpdateInventoryPosition();
+
 
             camera.Update(new Vector2(darthVader.PositionX, darthVader.PositionY));
             camera.UpdateCameraPosition(new Vector2(darthVader.PositionX, darthVader.PositionY));

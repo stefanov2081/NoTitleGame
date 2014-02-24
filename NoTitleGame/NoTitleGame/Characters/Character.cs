@@ -5,21 +5,28 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using System.Collections.Generic;
+    using ActiveItems;
     
     public abstract class Character : GameObject, IAnimate, IMoveable
     {
+        //CONSTANTS
+        private const int DEFAULT_NUMBER_OF_BAZOOKAS = 1;
+        private const int DEFAULT_NUMBER_OF_SHOTGUNS = 2;
+
         // Default terrain sprite
         private Texture2D characterTexture;
         //Fields
-        private int strength;       //affects health
-        private int health;         //health pounts    5 strength = 10 health
-        private int armor;          //mitigates damage 5 agility = 2 armor
-        private int agility;        //affects armor
-        private int shield;         //is the same as health
-        private int intelligence;   //affects mana
-        private int mana;           //needed for skills 5 intelligence = 5 mana
-        private int level;          //self-explanatory
-        private int experience;     //needed for leveling
+        private int strength;                   //affects health
+        private int health;                     //health pounts    5 strength = 10 health
+        private int armor;                      //mitigates damage 5 agility = 2 armor
+        private int agility;                    //affects armor
+        private int shield;                     //is the same as health
+        private int intelligence;               //affects mana
+        private int mana;                       //needed for skills 5 intelligence = 5 mana
+        private int level;                      //self-explanatory
+        private int experience;                 //needed for leveling
+        public List<ActiveItem> Inventory;      //how many weapons the char has
         //private bool isAlive; //no need for a field it's only a property
         
         //Variables needed for jumping
@@ -105,7 +112,7 @@
 
         //Constructor
         public Character(int positionX, int positionY, string name, int strength, int agility,
-                         int intelligence, int shield, int level, int experience)
+                         int intelligence, int shield, int level, int experience, int amountOfBazookas = DEFAULT_NUMBER_OF_BAZOOKAS, int amountOfShotguns = DEFAULT_NUMBER_OF_SHOTGUNS)
             : base(positionX, positionY, name)
         {
             //Setting main stats
@@ -131,10 +138,48 @@
             //Jump-related
             this.IsJumping = false;
             this.Jumpspeed = 0;
+
+            //Inventory-related
+            this.Inventory = new List<ActiveItem>();
+            LoadActiveItem(DEFAULT_NUMBER_OF_BAZOOKAS, ActiveItemType.Bazooka);
+            LoadActiveItem(DEFAULT_NUMBER_OF_SHOTGUNS, ActiveItemType.Shotgun);
         }
+
+        
         //Constructor---
 
         //Methods
+        //Fill inventory with weapons
+        private void LoadActiveItem(int amount, ActiveItemType type)
+        {
+            //Initialize
+            ActiveItem itemToAdd = null;
+            //Check what to add
+            if ( type == ActiveItemType.Bazooka)
+            {
+                itemToAdd = new Bazooka(this.PositionX, this.PositionY);
+            }
+            if (type == ActiveItemType.Shotgun)
+            {
+                itemToAdd = new Shotgun(this.PositionX, this.PositionY);
+            }
+            //Add it amount many times
+            for (int i = 0; i < amount; i++)
+            {
+                this.Inventory.Add(itemToAdd);
+            }
+        }
+
+        //Needed to move the char's inventory with him
+        public void UpdateInventoryPosition()
+        {
+            foreach (var item in this.Inventory)
+            {
+                item.PositionX = this.PositionX;
+                item.PositionY = this.PositionY;
+            }
+        }
+
         // Set the character on random position
         public void SetOnRadnomPosition()
         {
