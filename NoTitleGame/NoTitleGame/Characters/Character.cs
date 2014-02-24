@@ -28,8 +28,7 @@
 
         // IAnimate states
         private bool idle = true;
-        private bool moving;
-        private bool jumping;
+        private bool running;
 
         // IAnimate automatic fields
         public int frames { get; set; }
@@ -170,12 +169,12 @@
             }
             else
             {
-                this.sourceRect = new Rectangle(232 + 58 * frames, 10, 58, 55);
+                this.sourceRect = new Rectangle(406 - 58 * frames, 10, 58, 55);
             }
         }
 
         // Animate character when moving
-        public void AnimateCharacterMove(float delay, GameTime gameTime)
+        public void AnimateCharacterRun(float delay, GameTime gameTime)
         {
             this.elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -203,6 +202,36 @@
             }
         }
 
+        // Animate character when jumping
+        public void AnimateCharacterJump(float delay, GameTime gameTime)
+        {
+            this.elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (this.elapsed >= delay)
+            {
+                if (this.frames >= 7)
+                {
+                    this.frames = 0;
+                }
+                else
+                {
+                    this.frames++;
+                }
+
+                this.elapsed = 0;
+
+                if (facingRight)
+                {
+                    this.sourceRect = new Rectangle(58 * frames, 790, 58, 55);
+                }
+                else
+                {
+                    //this.sourceRect = new Rectangle(928 - 58 * frames, 790, 58, 55);
+                    this.sourceRect = new Rectangle(870 - 58 * frames, 790, 58, 55);
+                }
+            }
+        }
+
         // Proccess animations
         public void ProccessAnimations(float delay = 200, GameTime gameTime = null)
         {
@@ -210,9 +239,13 @@
             {
                 AnimateCharacterIdle(delay, gameTime);
             }
-            if (this.moving)
+            if (this.running)
             {
-                AnimateCharacterMove(delay, gameTime);
+                AnimateCharacterRun(delay, gameTime);
+            }
+            if (this.IsJumping)
+            {
+                AnimateCharacterJump(delay, gameTime);
             }
         }
 
@@ -225,14 +258,18 @@
             if (keybState.GetPressedKeys().Length == 0 && !IsJumping)
             {
                 this.idle = true;
-                this.moving = false;
+                this.running = false;
             }
             //Move left
             if (keybState.IsKeyDown(Keys.Left))
             {
                 this.idle = false;
                 this.facingRight = false;
-                this.moving = true;
+                if (!this.IsJumping)
+                {
+                    this.running = true;
+                }
+
                 this.PositionX -= 5;
 
                 if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
@@ -246,7 +283,11 @@
             {
                 this.idle = false;
                 this.facingRight = true;
-                this.moving = true;
+                if (!this.IsJumping)
+                {
+                    this.running = true;
+                }
+
                 this.PositionX += 5;
 
                 if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
@@ -259,6 +300,7 @@
             if (this.IsJumping)
             {
                 this.idle = false;
+                this.running = false;
                 this.PositionY += this.jumpspeed;   //Make the char go up
                 this.jumpspeed += 1;                //Needed for the character to fall down
                 if (this.PositionY >= Terrain.terrainContour[(int)this.PositionX])

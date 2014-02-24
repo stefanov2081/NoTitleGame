@@ -94,7 +94,7 @@ namespace NoTitleGame
             // Load test character
             darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 1, 0);
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
-            darthVader.scale = 0.5f;
+            darthVader.scale = 1.0f;
             darthVader.SetOnRadnomPosition();
 
             // Load camera

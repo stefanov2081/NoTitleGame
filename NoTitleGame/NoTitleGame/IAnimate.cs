@@ -17,6 +17,9 @@ namespace NoTitleGame
         void AnimateCharacterIdle(float delay, GameTime gameTime);
 
         // Animate character when moving
-        void AnimateCharacterMove(float delay, GameTime gameTime);
+        void AnimateCharacterRun(float delay, GameTime gameTime);
+
+        // Animate character when jumping
+        void AnimateCharacterJump(float delay, GameTime gameTime);
     }
 }
