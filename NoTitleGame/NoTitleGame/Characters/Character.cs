@@ -26,6 +26,11 @@
         private bool isJumping;     //Determines wether the char is jumping
         private int jumpspeed;      //How fast the char jumps
 
+        // IAnimate states
+        private bool idle = true;
+        private bool moving;
+        private bool jumping;
+
         // IAnimate automatic fields
         public int frames { get; set; }
         public float elapsed { get; set; }
@@ -99,6 +104,37 @@
             set { this.isJumping = value; }
         }
 
+        //Constructor
+        public Character(int positionX, int positionY, string name, int strength, int agility,
+                         int intelligence, int shield, int level, int experience)
+            : base(positionX, positionY, name)
+        {
+            //Setting main stats
+            this.Strength = strength;
+            this.Agility = agility;
+            this.Intelligence = intelligence;
+            this.Shield = shield;
+
+            //Setting dependables
+            this.Health = this.Strength * 2;
+            this.Armor = (this.Agility / 5) * 2;
+            this.Mana = this.Intelligence;
+
+            //Level-related
+            this.Experience = experience;
+            this.Level = level;
+
+            // Animation-related
+            this.facingRight = true;
+            this.elapsed = 0;
+            this.frames = 0;
+
+            //Jump-related
+            this.IsJumping = false;
+            this.Jumpspeed = 0;
+        }
+        //Constructor---
+
         //Methods
         // Set the character on random position
         public void SetOnRadnomPosition()
@@ -138,46 +174,67 @@
             }
         }
 
-        //Constructor
-        public Character(int positionX, int positionY, string name, int strength, int agility,
-                         int intelligence, int shield, int level, int experience)
-            : base(positionX, positionY, name)
+        // Animate character when moving
+        public void AnimateCharacterMove(float delay, GameTime gameTime)
         {
-            //Setting main stats
-            this.Strength = strength;
-            this.Agility = agility;
-            this.Intelligence = intelligence;
-            this.Shield = shield;
+            this.elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //Setting dependables
-            this.Health = this.Strength * 2;
-            this.Armor = (this.Agility / 5) * 2;
-            this.Mana = this.Intelligence;
+            if (this.elapsed >= delay)
+            {
+                if (this.frames >= 7)
+                {
+                    this.frames = 0;
+                }
+                else
+                {
+                    this.frames++;
+                }
 
-            //Level-related
-            this.Experience = experience;
-            this.Level = level;
+                this.elapsed = 0;
+            }
 
-            // Animation-related
-            this.facingRight = true;
-            this.elapsed = 0;
-            this.frames = 0;
-
-            //Jump-related
-            this.IsJumping = false;
-            this.Jumpspeed = 0;
+            if (this.facingRight)
+            {
+                this.sourceRect = new Rectangle(58 * frames, 143, 58, 55);
+            }
+            else
+            {
+                this.sourceRect = new Rectangle(406 - 58 * frames, 220, 58, 55);
+            }
         }
-        //Constructor---
+
+        // Proccess animations
+        public void ProccessAnimations(float delay = 200, GameTime gameTime = null)
+        {
+            if (this.idle)
+            {
+                AnimateCharacterIdle(delay, gameTime);
+            }
+            if (this.moving)
+            {
+                AnimateCharacterMove(delay, gameTime);
+            }
+        }
 
         //Moving the character
         public void Move()
         {
             KeyboardState keybState = Keyboard.GetState();
 
+            // Idle
+            if (keybState.GetPressedKeys().Length == 0 && !IsJumping)
+            {
+                this.idle = true;
+                this.moving = false;
+            }
             //Move left
             if (keybState.IsKeyDown(Keys.Left))
             {
+                this.idle = false;
+                this.facingRight = false;
+                this.moving = true;
                 this.PositionX -= 5;
+
                 if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
                 {
                     this.PositionY = Terrain.terrainContour[(int)this.PositionX];
@@ -187,7 +244,11 @@
             //Move right
             if (keybState.IsKeyDown(Keys.Right))
             {
+                this.idle = false;
+                this.facingRight = true;
+                this.moving = true;
                 this.PositionX += 5;
+
                 if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
                 {
                     this.PositionY = Terrain.terrainContour[(int)this.PositionX];
@@ -197,6 +258,7 @@
             //Jumping
             if (this.IsJumping)
             {
+                this.idle = false;
                 this.PositionY += this.jumpspeed;   //Make the char go up
                 this.jumpspeed += 1;                //Needed for the character to fall down
                 if (this.PositionY >= Terrain.terrainContour[(int)this.PositionX])

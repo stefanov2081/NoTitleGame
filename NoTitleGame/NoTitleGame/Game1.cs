@@ -94,7 +94,7 @@ namespace NoTitleGame
             // Load test character
             darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 1, 0);
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
-            darthVader.scale = 1.0f;
+            darthVader.scale = 0.5f;
             darthVader.SetOnRadnomPosition();
 
             // Load camera
@@ -121,7 +121,7 @@ namespace NoTitleGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            darthVader.AnimateCharacterIdle(200.0f, gameTime);
+            darthVader.ProccessAnimations(100, gameTime);
             
             // Is called without conditions due to the jumping
             darthVader.Move();

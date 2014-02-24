@@ -10,7 +10,13 @@ namespace NoTitleGame
         bool facingRight { get; set; }
         Rectangle sourceRect { get; set; }
 
+        // Proccess animations
+        void ProccessAnimations(float delay, GameTime gameTime);
+
         // Animate character when idle
-        void AnimateCharacterIdle(float delay, GameTime gameTime = null);
+        void AnimateCharacterIdle(float delay, GameTime gameTime);
+
+        // Animate character when moving
+        void AnimateCharacterMove(float delay, GameTime gameTime);
     }
 }
