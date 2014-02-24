@@ -124,9 +124,8 @@ namespace NoTitleGame
             
             // Is called without conditions due to the jumping
             darthVader.Move();
-            // Move the inventory with the character
-            darthVader.UpdateInventoryPosition();
-
+            //TODO: Before the character fires call the character.UpdateSelectedWeaponPosition()
+            //And make sure the character has selected the weapon he wishes to fire
 
             camera.Update(new Vector2(darthVader.PositionX, darthVader.PositionY));
             camera.UpdateCameraPosition(new Vector2(darthVader.PositionX, darthVader.PositionY));

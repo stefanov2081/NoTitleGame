@@ -27,6 +27,7 @@
         private int level;                      //self-explanatory
         private int experience;                 //needed for leveling
         public List<ActiveItem> Inventory;      //how many weapons the char has
+        private ActiveItemType selectedWeapon;  //which weapon the char will fire
         //private bool isAlive; //no need for a field it's only a property
         
         //Variables needed for jumping
@@ -109,6 +110,12 @@
             get { return this.isJumping; }
             set { this.isJumping = value; }
         }
+        public ActiveItemType SelectedWeapon
+        {
+            get { return this.selectedWeapon; }
+            set { this.selectedWeapon = value; }
+        }
+
 
         //Constructor
         public Character(int positionX, int positionY, string name, int strength, int agility,
@@ -171,12 +178,15 @@
         }
 
         //Needed to move the char's inventory with him
-        public void UpdateInventoryPosition()
+        public void UpdateSelectedWeaponPosition()
         {
             foreach (var item in this.Inventory)
             {
-                item.PositionX = this.PositionX;
-                item.PositionY = this.PositionY;
+               if (item.Type == this.SelectedWeapon)
+               {
+                   item.PositionX = this.PositionX;
+                   item.PositionY = this.PositionY;
+               }
             }
         }
 

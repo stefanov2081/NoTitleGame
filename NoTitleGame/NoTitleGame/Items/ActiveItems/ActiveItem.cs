@@ -6,6 +6,7 @@
     {
         //Fields
         private int damage;
+        private ActiveItemType type;
 
         //Properties
         public int Damage
@@ -14,10 +15,16 @@
             set { this.damage = value; }
         }
 
+        public ActiveItemType Type
+        {
+            get { return this.type; }
+            set { this.type = value; }
+        }
         //Methods
-        public ActiveItem(int positionX, int positionY, string name, int damage) : base(positionX, positionY, name) 
+        public ActiveItem(int positionX, int positionY, string name, int damage, ActiveItemType type) : base(positionX, positionY, name) 
         {
             this.Damage = damage;
+            this.Type = type;
         }
     }
 }
