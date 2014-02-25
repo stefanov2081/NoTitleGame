@@ -8,6 +8,7 @@
     using System.Collections.Generic;
     using ActiveItems;
     using Microsoft.Xna.Framework.Audio;
+    using Exceptions;
     
     public abstract class Character : GameObject, IAnimate, IMoveable, ISound
     {
@@ -362,66 +363,73 @@
                 this.idle = true;
                 this.running = false;
             }
-            //Move left
-            if (this.keybState.IsKeyDown(Keys.Left))
+            try
             {
-                this.idle = false;
-                this.facingRight = false;
-                if (!this.IsJumping)
+                //Move left
+                if (this.keybState.IsKeyDown(Keys.Left))
                 {
-                    this.running = true;
+                    this.idle = false;
+                    this.facingRight = false;
+                    if (!this.IsJumping)
+                    {
+                        this.running = true;
+                    }
+
+                    this.PositionX -= 5;
+
+                    if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
+                    {
+                        this.PositionY = Terrain.terrainContour[(int)this.PositionX];
+                    }
                 }
 
-                this.PositionX -= 5;
-
-                if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
+                //Move right
+                if (this.keybState.IsKeyDown(Keys.Right))
                 {
-                    this.PositionY = Terrain.terrainContour[(int)this.PositionX];
+                    this.idle = false;
+                    this.facingRight = true;
+                    if (!this.IsJumping)
+                    {
+                        this.running = true;
+                    }
+
+                    this.PositionX += 5;
+
+                    if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
+                    {
+                        this.PositionY = Terrain.terrainContour[(int)this.PositionX];
+                    }
+                }
+
+                //Jumping
+                if (this.IsJumping)
+                {
+                    this.idle = false;
+                    this.running = false;
+                    this.PositionY += this.jumpspeed;   //Make the char go up
+                    this.jumpspeed += 1;                //Needed for the character to fall down
+                    if (this.PositionY >= Terrain.terrainContour[(int)this.PositionX])
+                    //If the char is farther than ground
+                    {
+                        this.PositionY = Terrain.terrainContour[(int)this.PositionX];//Then set it on the ground
+                        this.IsJumping = false;
+                    }
+
+                }
+
+                else
+                {
+                    if (this.keybState.IsKeyDown(Keys.Up))
+                    {
+                        PlaySound(JumpSound);
+                        this.IsJumping = true;
+                        this.jumpspeed = -14;       //Give the char an upward thrust
+                    }
                 }
             }
-            
-            //Move right
-            if (this.keybState.IsKeyDown(Keys.Right))
+            catch (IndexOutOfRangeException)
             {
-                this.idle = false;
-                this.facingRight = true;
-                if (!this.IsJumping)
-                {
-                    this.running = true;
-                }
-
-                this.PositionX += 5;
-
-                if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
-                {
-                    this.PositionY = Terrain.terrainContour[(int)this.PositionX];
-                }
-            }
-
-            //Jumping
-            if (this.IsJumping)
-            {
-                this.idle = false;
-                this.running = false;
-                this.PositionY += this.jumpspeed;   //Make the char go up
-                this.jumpspeed += 1;                //Needed for the character to fall down
-                if (this.PositionY >= Terrain.terrainContour[(int)this.PositionX])
-                //If the char is farther than ground
-                {
-                    this.PositionY = Terrain.terrainContour[(int)this.PositionX];//Then set it on the ground
-                    this.IsJumping = false;
-                }
-
-            }
-
-            else
-            {
-                if (this.keybState.IsKeyDown(Keys.Up))
-                {
-                    PlaySound(JumpSound);
-                    this.IsJumping = true;
-                    this.jumpspeed = -14;       //Give the char an upward thrust
-                }
+                throw new CharacterHasDiedException("Your character has died");
             }
         }
     }

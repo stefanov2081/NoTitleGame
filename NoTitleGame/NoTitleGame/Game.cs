@@ -8,12 +8,18 @@ namespace NoTitleGame
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Audio;
+    using Exceptions;
+    using System.Collections.Generic;
+    using System;
+    using System.Runtime.InteropServices;
+    
 
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game : Microsoft.Xna.Framework.Game
     {
+        
         // Declare different objects
         // Declare graphics device
         public static GraphicsDevice device;
@@ -45,7 +51,16 @@ namespace NoTitleGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public Game1()
+        //Message box stuff
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern uint MessageBox(IntPtr hWnd, String text, String caption, uint type);
+
+        void MsgBox(string caption, string message)
+        {
+            MessageBox(new IntPtr(0), message, caption, 0);
+        }
+        
+        public Game()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -55,6 +70,8 @@ namespace NoTitleGame
             graphics.PreferredBackBufferHeight = 800;
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
+
+            
 
             // Enable mouse
             this.IsMouseVisible = true;
@@ -145,7 +162,17 @@ namespace NoTitleGame
             darthVader.ProccessAnimations(100, gameTime);
             
             // Is called without conditions due to the jumping
-            darthVader.Move();
+            try
+            {
+                darthVader.Move();
+            }
+            catch (CharacterHasDiedException e)
+            {
+                graphics.IsFullScreen = false;
+                graphics.ApplyChanges();
+                MsgBox("Death", e.Message);
+                Environment.Exit(0);
+            }
             //TODO: Before the character fires call the character.UpdateSelectedWeaponPosition()
             //And make sure the character has selected the weapon he wishes to fire
 

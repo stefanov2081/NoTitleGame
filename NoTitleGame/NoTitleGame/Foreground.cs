@@ -60,7 +60,7 @@
                 }
             }
 
-            this.GeneratedForeground = new Texture2D(Game1.device, this.Width, this.Height, false, SurfaceFormat.Color);
+            this.GeneratedForeground = new Texture2D(Game.device, this.Width, this.Height, false, SurfaceFormat.Color);
             this.GeneratedForeground.SetData(foregroundColours);
             this.colourArray = TextureToArray.TextureTo2DArray(GeneratedForeground);
             
