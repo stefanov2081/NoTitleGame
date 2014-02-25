@@ -25,13 +25,17 @@
             set { this.name = value; }
         }
 
-        //Methods
         //Constructor
         public GameObject(int positionX, int positionY, string name)
         {
             this.PositionX = positionX;
             this.PositionY = positionY;
             this.Name = name;
+        }
+
+        // Emprty constructor
+        public GameObject()
+        { 
         }
     }
 }

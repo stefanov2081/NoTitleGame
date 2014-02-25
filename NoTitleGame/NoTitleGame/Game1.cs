@@ -1,9 +1,12 @@
+using Characters;
+using NoTitleGame;
+
 namespace NoTitleGame
 {
+    
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
-    using Characters;
     using Microsoft.Xna.Framework.Audio;
 
     /// <summary>
@@ -33,6 +36,12 @@ namespace NoTitleGame
         // Declare camera
         Camera camera;
 
+        // Declare user interface rectangle and background pixel
+        DrawRectangle UIBackground;
+        DrawRectangle progressBar;
+        SpriteFont font;
+
+        // Default graphics device
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -42,9 +51,9 @@ namespace NoTitleGame
             Content.RootDirectory = "Content";
 
             // Set window size
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             // Enable mouse
@@ -71,13 +80,14 @@ namespace NoTitleGame
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
             // Initialize graphics device
             device = graphics.GraphicsDevice;
 
             // Load game world
             world = new GameWorld(device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
+            //world = new GameWorld(2048, 1024);
 
             // Load background
             background = new Background(world.Width, world.Height);
@@ -93,11 +103,19 @@ namespace NoTitleGame
             foreground.CreateForeground();
 
             // Load test character
-            darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 1, 0);
+            darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 15, 0);
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
             darthVader.JumpSound = Content.Load<SoundEffect>("jump");
             darthVader.scale = 1.0f;
             darthVader.SetOnRadnomPosition();
+
+            // Load stats bar
+            UIBackground = new DrawRectangle(GraphicsDevice, Content.Load<Texture2D>("UIBack"));
+            progressBar = new DrawRectangle(GraphicsDevice, Content.Load<Texture2D>("progressBar"));
+            progressBar.Rectangle = GraphicsDevice.Viewport.TitleSafeArea;
+
+            // Load font
+            font = Content.Load<SpriteFont>("Font");
 
             // Load camera
             camera = new Camera(GraphicsDevice.Viewport);
@@ -123,6 +141,7 @@ namespace NoTitleGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            // Proccess animations
             darthVader.ProccessAnimations(100, gameTime);
             
             // Is called without conditions due to the jumping
@@ -130,6 +149,12 @@ namespace NoTitleGame
             //TODO: Before the character fires call the character.UpdateSelectedWeaponPosition()
             //And make sure the character has selected the weapon he wishes to fire
 
+            // Tests stats bars logic
+            darthVader.CurrentHealth --;
+            darthVader.CurrentMana -= 2;
+            darthVader.CurrentShield -= 3;
+
+            // Follow camera
             camera.Update(new Vector2(darthVader.PositionX, darthVader.PositionY));
             camera.UpdateCameraPosition(new Vector2(darthVader.PositionX, darthVader.PositionY));
 
@@ -144,9 +169,13 @@ namespace NoTitleGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
             // Draw background
+            spriteBatch.Begin();
             spriteBatch.Draw(background.BackgroundTexture, world.GameWorldDimensions, Color.White);
+            spriteBatch.End();
+
+            // Draw game content
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
             // Draw foreground
             spriteBatch.Draw(foreground.GeneratedForeground, world.GameWorldDimensions, Color.White);
             // Draw test character
@@ -154,7 +183,18 @@ namespace NoTitleGame
                 new Vector2(55 / 2, 58), darthVader.scale, SpriteEffects.None, 0);
             spriteBatch.End();
 
+            // Draw stats
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            DirectDraw.DrawBottomStats(UIBackground, progressBar, darthVader, graphics, device, spriteBatch, font);
+            spriteBatch.End();
+
             base.Draw(gameTime);
+
+            
+
+            
+            
+            
         }
     }
 }

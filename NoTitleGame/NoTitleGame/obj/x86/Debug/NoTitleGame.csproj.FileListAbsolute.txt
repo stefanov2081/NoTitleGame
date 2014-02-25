@@ -25,3 +25,6 @@ C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\De
 C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\nssheet.xnb
 E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\nssheet.xnb
 C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\jump.xnb
+C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\Font.xnb
+C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\UIBack.xnb
+C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\progressBar.xnb

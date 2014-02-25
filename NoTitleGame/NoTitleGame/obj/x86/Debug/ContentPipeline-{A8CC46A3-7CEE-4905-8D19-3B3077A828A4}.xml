@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\background.xnb</Output>
-      <Time>2014-02-24T20:59:06.4730924+02:00</Time>
+      <Time>2014-02-24T23:25:33.9227057+02:00</Time>
     </Item>
     <Item>
       <Source>ground.jpg</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\ground.xnb</Output>
-      <Time>2014-02-24T20:59:06.483093+02:00</Time>
+      <Time>2014-02-24T23:25:33.9307062+02:00</Time>
     </Item>
     <Item>
       <Source>nssheet.png</Source>
@@ -29,7 +29,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\nssheet.xnb</Output>
-      <Time>2014-02-24T20:59:06.4900934+02:00</Time>
+      <Time>2014-02-24T23:25:33.9457071+02:00</Time>
     </Item>
     <Item>
       <Source>jump.wav</Source>
@@ -38,7 +38,37 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\jump.xnb</Output>
-      <Time>2014-02-24T22:02:48.3046886+02:00</Time>
+      <Time>2014-02-24T23:25:33.9387067+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Font.spritefont</Source>
+      <Name>Font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\Font.xnb</Output>
+      <Time>2014-02-25T01:07:46.3744619+02:00</Time>
+    </Item>
+    <Item>
+      <Source>UIBack.png</Source>
+      <Name>UIBack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\UIBack.xnb</Output>
+      <Time>2014-02-25T17:39:00.0096343+02:00</Time>
+    </Item>
+    <Item>
+      <Source>progressBar.png</Source>
+      <Name>progressBar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor">0, 0, 0, 255</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\progressBar.xnb</Output>
+      <Time>2014-02-25T17:58:54.0279283+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

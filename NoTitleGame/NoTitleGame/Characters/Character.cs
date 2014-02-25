@@ -22,12 +22,15 @@
 
         //Fields
         private int strength;                   //affects health
-        private int health;                     //health pounts    5 strength = 10 health
+        private int maxHealth;                  //health pounts    5 strength = 10 health
+        private int currentHealth;              // Stores the current health of the character
         private int armor;                      //mitigates damage 5 agility = 2 armor
         private int agility;                    //affects armor
-        private int shield;                     //is the same as health
+        private int currentShield;              //is the same as health
+        private int maxShield;                  // Stores the max shield of the character
         private int intelligence;               //affects mana
-        private int mana;                       //needed for skills 5 intelligence = 5 mana
+        private int maxMana;                    //needed for skills 5 intelligence = 5 mana
+        private int currentMana;                // Stores the current mana of the character
         private int level;                      //self-explanatory
         private int experience;                 //needed for leveling
         public List<ActiveItem> Inventory;      //how many weapons the char has
@@ -69,10 +72,15 @@
             get { return this.strength; }
             set { this.strength = value; } 
         }
-        public int Health
+        public int MaxHealth
         {
-            get { return this.health; }
-            set { this.health = value; }
+            get { return this.maxHealth; }
+            set { this.maxHealth = value; }
+        }
+        public int CurrentHealth
+        {
+            get { return this.currentHealth; }
+            set { this.currentHealth = value; }
         }
         public int Armor
         {
@@ -84,20 +92,30 @@
             get { return this.agility; }
             set { this.agility = value; }
         }
-        public int Shield
+        public int CurrentShield
         {
-            get { return this.shield; }
-            set { this.shield = value; }
+            get { return this.currentShield; }
+            set { this.currentShield = value; }
+        }
+        public int MaxShield
+        {
+            get { return this.maxShield; }
+            set { this.maxShield = value; }
         }
         public int Intelligence
         {
             get { return this.intelligence; }
             set { this.intelligence = value; }
         }
-        public int Mana
+        public int MaxMana
         {
-            get { return this.mana; }
-            set { this.mana = value; }
+            get { return this.maxMana; }
+            set { this.maxMana = value; }
+        }
+        public int CurrentMana
+        {
+            get { return this.currentMana; }
+            set { this.currentMana = value; }
         }
         public int Level
         {
@@ -116,7 +134,7 @@
         }
         public bool IsAlive
         {
-            get { return this.health > 0; }
+            get { return this.maxHealth > 0; }
         }
         public bool IsJumping
         {
@@ -139,12 +157,15 @@
             this.Strength = strength;
             this.Agility = agility;
             this.Intelligence = intelligence;
-            this.Shield = shield;
+            this.CurrentShield = shield;
+            this.MaxShield = this.CurrentShield;
 
             //Setting dependables
-            this.Health = this.Strength * 2;
+            this.MaxHealth = this.Strength * 2;
+            this.CurrentHealth = this.MaxHealth;
             this.Armor = (this.Agility / 5) * 2;
-            this.Mana = this.Intelligence;
+            this.MaxMana = this.Intelligence;
+            this.CurrentMana = this.MaxMana;
 
             //Level-related
             this.Experience = experience;
@@ -163,6 +184,11 @@
             this.Inventory = new List<ActiveItem>();
             LoadActiveItem(DEFAULT_NUMBER_OF_BAZOOKAS, ActiveItemType.Bazooka);
             LoadActiveItem(DEFAULT_NUMBER_OF_SHOTGUNS, ActiveItemType.Shotgun);
+        }
+
+        // Empty constructor
+        public Character()
+        { 
         }
 
         

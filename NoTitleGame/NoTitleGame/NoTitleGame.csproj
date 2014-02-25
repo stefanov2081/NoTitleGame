@@ -78,6 +78,7 @@
     <Compile Include="Characters\Master.cs" />
     <Compile Include="Characters\Knight.cs" />
     <Compile Include="Characters\Padawan.cs" />
+    <Compile Include="DrawRectangle.cs" />
     <Compile Include="Foreground.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Terrain.cs" />
     <Compile Include="TextureToArray.cs" />
+    <Compile Include="DirectDraw.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

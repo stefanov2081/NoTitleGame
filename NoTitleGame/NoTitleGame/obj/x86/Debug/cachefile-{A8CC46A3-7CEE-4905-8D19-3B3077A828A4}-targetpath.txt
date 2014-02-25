@@ -2,3 +2,6 @@ Content\background.xnb
 Content\ground.xnb
 Content\nssheet.xnb
 Content\jump.xnb
+Content\Font.xnb
+Content\UIBack.xnb
+Content\progressBar.xnb
