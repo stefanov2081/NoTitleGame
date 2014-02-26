@@ -97,6 +97,7 @@
     <Compile Include="Items\BonusItems\FullBodyShield.cs" />
     <Compile Include="Items\BonusItems\HealthPack.cs" />
     <Compile Include="Items\Item.cs" />
+    <Compile Include="Projectlie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameMainMethod.cs" />
     <Compile Include="Game.cs" />

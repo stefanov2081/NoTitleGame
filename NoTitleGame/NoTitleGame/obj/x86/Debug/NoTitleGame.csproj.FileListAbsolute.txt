@@ -32,3 +32,5 @@ E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\prog
 E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\UIBack.xnb
 E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\jump.xnb
 E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\Font.xnb
+C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\rocket.xnb
+C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\smoke.xnb

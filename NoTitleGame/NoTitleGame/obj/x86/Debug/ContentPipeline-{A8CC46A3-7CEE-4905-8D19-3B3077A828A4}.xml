@@ -70,6 +70,24 @@
       <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\Font.xnb</Output>
       <Time>2014-02-26T12:35:40.2246304+02:00</Time>
     </Item>
+    <Item>
+      <Source>rocket.png</Source>
+      <Name>rocket</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\rocket.xnb</Output>
+      <Time>2014-02-26T13:13:39.1829793+02:00</Time>
+    </Item>
+    <Item>
+      <Source>smoke.png</Source>
+      <Name>smoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\smoke.xnb</Output>
+      <Time>2014-02-26T13:13:39.2539834+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{A8CC46A3-7CEE-4905-8D19-3B3077A828A4}</ContentProjectGUID>

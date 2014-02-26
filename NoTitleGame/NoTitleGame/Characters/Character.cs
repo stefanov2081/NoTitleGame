@@ -1,14 +1,15 @@
 ﻿namespace Characters
 {
     using System;
-    using NoTitleGame;
+    using System.Collections.Generic;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
-    using System.Collections.Generic;
     using ActiveItems;
-    using Microsoft.Xna.Framework.Audio;
     using Exceptions;
+    using NoTitleGame;
+    
+    using Microsoft.Xna.Framework.Audio;
     
     public abstract class Character : GameObject, IAnimate, IMoveable, ISound
     {
@@ -36,6 +37,8 @@
         private int experience;                 //needed for leveling
         public List<ActiveItem> Inventory;      //how many weapons the char has
         private ActiveItemType selectedWeapon;  //which weapon the char will fire
+        private float angle;
+        private float power;
         //private bool isAlive; //no need for a field it's only a property
         
         //Variables needed for jumping
@@ -53,7 +56,7 @@
         public bool facingRight { get; set; }
         public Rectangle sourceRect { get; set; }
 
-        // Keyboart state fields
+        // Keyboard state fields
         private KeyboardState keybState;
         private KeyboardState previousKeyboardState;
 
@@ -148,6 +151,17 @@
             set { this.selectedWeapon = value; }
         }
 
+        public float Angle
+        {
+            get { return this.angle; }
+            set { this.angle = value; }
+        }
+
+        public float Power
+        {
+            get { return this.power; }
+            set { this.power = value; }
+        }
 
         //Constructor
         public Character(int positionX, int positionY, string name, int strength, int agility,
@@ -191,7 +205,6 @@
         public Character()
         { 
         }
-
         
         //Constructor---
 
@@ -231,11 +244,9 @@
         }
 
         // Set the character on random position
-        public void SetOnRadnomPosition()
+        public void SetOnRadnomPosition(Random random)
         {
-            Random rand = new Random();
-
-            this.PositionX = rand.Next(0, Terrain.terrainContour.Length);
+            this.PositionX = random.Next(0, Terrain.terrainContour.Length);
             this.PositionY = Terrain.terrainContour[PositionX];
         }
 
@@ -350,86 +361,133 @@
             sound.Play();
         }
 
-        //Moving the character
-        public void Move()
+        // Read user input from keyboard
+        public void ProcessKeyboard(Character currChar, Projectlie currentProj)
         {
             // We will need this for later, when fireing weapons
             this.previousKeyboardState = keybState;
             this.keybState = Keyboard.GetState();
 
+            try
+            {
+                this.Move();
+                this.Jump();
+                this.RotateWeaponAngle(currChar);
+                this.Fire(currChar, currentProj);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new CharacterHasDiedException("Your character has died");
+            }
+        }
+
+        //Moving the character
+        public void Move()
+        {
             // Idle
             if (this.keybState.GetPressedKeys().Length == 0 && !IsJumping)
             {
                 this.idle = true;
                 this.running = false;
             }
-            try
+
+            //Move left
+            if (this.keybState.IsKeyDown(Keys.Left))
             {
-                //Move left
-                if (this.keybState.IsKeyDown(Keys.Left))
+                this.idle = false;
+                this.facingRight = false;
+                if (!this.IsJumping)
                 {
-                    this.idle = false;
-                    this.facingRight = false;
-                    if (!this.IsJumping)
-                    {
-                        this.running = true;
-                    }
-
-                    this.PositionX -= 5;
-
-                    if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
-                    {
-                        this.PositionY = Terrain.terrainContour[(int)this.PositionX];
-                    }
+                    this.running = true;
                 }
 
-                //Move right
-                if (this.keybState.IsKeyDown(Keys.Right))
+                this.PositionX -= 5;
+
+                if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
                 {
-                    this.idle = false;
-                    this.facingRight = true;
-                    if (!this.IsJumping)
-                    {
-                        this.running = true;
-                    }
-
-                    this.PositionX += 5;
-
-                    if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
-                    {
-                        this.PositionY = Terrain.terrainContour[(int)this.PositionX];
-                    }
-                }
-
-                //Jumping
-                if (this.IsJumping)
-                {
-                    this.idle = false;
-                    this.running = false;
-                    this.PositionY += this.jumpspeed;   //Make the char go up
-                    this.jumpspeed += 1;                //Needed for the character to fall down
-                    if (this.PositionY >= Terrain.terrainContour[(int)this.PositionX])
-                    //If the char is farther than ground
-                    {
-                        this.PositionY = Terrain.terrainContour[(int)this.PositionX];//Then set it on the ground
-                        this.IsJumping = false;
-                    }
-
-                }
-
-                else
-                {
-                    if (this.keybState.IsKeyDown(Keys.Up))
-                    {
-                        PlaySound(JumpSound);
-                        this.IsJumping = true;
-                        this.jumpspeed = -14;       //Give the char an upward thrust
-                    }
+                    this.PositionY = Terrain.terrainContour[(int)this.PositionX];
                 }
             }
-            catch (IndexOutOfRangeException)
+            
+            //Move right
+            if (this.keybState.IsKeyDown(Keys.Right))
             {
-                throw new CharacterHasDiedException("Your character has died");
+                this.idle = false;
+                this.facingRight = true;
+                if (!this.IsJumping)
+                {
+                    this.running = true;
+                }
+
+                this.PositionX += 5;
+
+                if (this.PositionY != Terrain.terrainContour[(int)this.PositionX] && this.IsJumping == false)
+                {
+                    this.PositionY = Terrain.terrainContour[(int)this.PositionX];
+                }
+            }
+        }
+
+        public void Jump()
+        {
+            //Jumping
+            if (this.IsJumping)
+            {
+                this.idle = false;
+                this.running = false;
+                this.PositionY += this.jumpspeed;   //Make the char go up
+                this.jumpspeed += 1;                //Needed for the character to fall down
+
+                if (this.PositionY >= Terrain.terrainContour[(int)this.PositionX])
+                //If the char is farther than ground
+                {
+                    this.PositionY = Terrain.terrainContour[(int)this.PositionX];//Then set it on the ground
+                    this.IsJumping = false;
+                }
+            }
+
+            else
+            {
+                if (this.keybState.IsKeyDown(Keys.Enter))
+                {
+                    PlaySound(JumpSound);
+                    this.IsJumping = true;
+                    this.jumpspeed = -14;       //Give the char an upward thrust
+                }
+            }
+        }
+
+        // Fire weapon
+        public void Fire(Character currentCharacter, Projectlie currentProjectile)
+        {
+            if (this.previousKeyboardState.IsKeyDown(Keys.Space) && this.keybState.IsKeyUp(Keys.Space) || currentCharacter.Power >= 1000)
+            {
+                currentProjectile.FireProjectile(currentCharacter);
+
+                currentCharacter.Power = 0;
+            }
+
+            if (this.keybState.IsKeyDown(Keys.Space))
+            {
+                currentCharacter.Power += 2;
+
+                if (currentCharacter.Power >= 1000)
+                {
+                    currentProjectile.FireProjectile(currentCharacter);
+                }
+            }
+        }
+
+        public void RotateWeaponAngle(Character currChar)
+        {
+            // Rotate cannon
+            if (keybState.IsKeyDown(Keys.Up))
+            {
+                currChar.Angle -= 0.01f;
+            }
+            if (keybState.IsKeyDown(Keys.Down))
+            {
+                currChar.Angle += 0.01f;
             }
         }
     }

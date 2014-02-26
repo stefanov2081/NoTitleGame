@@ -5,3 +5,5 @@ Content\progressBar.xnb
 Content\UIBack.xnb
 Content\jump.xnb
 Content\Font.xnb
+Content\rocket.xnb
+Content\smoke.xnb

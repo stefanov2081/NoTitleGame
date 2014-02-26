@@ -24,6 +24,9 @@ namespace NoTitleGame
         // Declare graphics device
         public static GraphicsDevice device;
 
+        // Deckare random generator
+        Random random;
+
         // Declare game world
         GameWorld world;
 
@@ -38,6 +41,9 @@ namespace NoTitleGame
 
         // Declare test character
         Character darthVader;
+
+        // Declare test projectile
+        Projectlie rocket;
 
         // Declare camera
         Camera camera;
@@ -68,7 +74,7 @@ namespace NoTitleGame
             // Set window size
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 800;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
 
             
@@ -102,6 +108,9 @@ namespace NoTitleGame
             // Initialize graphics device
             device = graphics.GraphicsDevice;
 
+            // Initialize new random generator
+            random = new Random();
+
             // Load game world
             world = new GameWorld(device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
             //world = new GameWorld(2048, 1024);
@@ -124,7 +133,15 @@ namespace NoTitleGame
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
             darthVader.JumpSound = Content.Load<SoundEffect>("jump");
             darthVader.scale = 1.0f;
-            darthVader.SetOnRadnomPosition();
+            darthVader.SetOnRadnomPosition(random);
+
+            // Load test rocket and smoke trail
+            rocket = new Projectlie(new Vector2(darthVader.PositionX, darthVader.PositionY), 1f, 1.0f);
+            rocket.ProjectileTexture = Content.Load<Texture2D>("rocket");
+            rocket.SmokeTexture = Content.Load<Texture2D>("smoke");
+
+            // Load angle of weapon
+            darthVader.Angle = MathHelper.ToRadians(90);
 
             // Load stats bar
             UIBackground = new DrawRectangle(GraphicsDevice, Content.Load<Texture2D>("UIBack"));
@@ -160,13 +177,14 @@ namespace NoTitleGame
 
             // Proccess animations
             darthVader.ProccessAnimations(100, gameTime);
+            rocket.UpdateProjectile(random);
             
             // Is called without conditions due to the jumping
             try
             {
-                darthVader.Move();
+                darthVader.ProcessKeyboard(darthVader, rocket);
             }
-            catch (CharacterHasDiedException e)
+            catch (CharacterHasDiedException) //e)
             {
                 //graphics.IsFullScreen = false;
                 //graphics.ApplyChanges();
@@ -208,20 +226,19 @@ namespace NoTitleGame
             // Draw test character
             spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.sourceRect, Color.White, 0, 
                 new Vector2(55 / 2, 58), darthVader.scale, SpriteEffects.None, 0);
+            // Draw projectile - rocket and smoke
+            rocket.DrawProjectile(spriteBatch, Color.Red);
+            rocket.DrawSmoke(spriteBatch);
             spriteBatch.End();
 
             // Draw stats
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             DirectDraw.DrawBottomStats(UIBackground, progressBar, darthVader, graphics, device, spriteBatch, font);
+            spriteBatch.DrawString(font, darthVader.Power.ToString(), new Vector2(10, 10), Color.Black);
+            spriteBatch.DrawString(font, darthVader.Angle.ToString(), new Vector2(10, 30), Color.Black);
             spriteBatch.End();
 
             base.Draw(gameTime);
-
-            
-
-            
-            
-            
         }
     }
 }
