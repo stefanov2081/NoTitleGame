@@ -104,6 +104,7 @@
     <Compile Include="Terrain.cs" />
     <Compile Include="TextureToArray.cs" />
     <Compile Include="DirectDraw.cs" />
+    <Compile Include="TurnInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

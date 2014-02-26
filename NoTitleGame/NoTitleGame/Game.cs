@@ -42,6 +42,9 @@ namespace NoTitleGame
         // Declare test character
         Character darthVader;
 
+        // Holds the total number of characters for turned based game and current player turn here could be added a turn timer
+        TurnInfo turnInfo;
+
         // Declare test projectile
         Projectlie rocket;
 
@@ -226,6 +229,7 @@ namespace NoTitleGame
             // Draw test character
             spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.sourceRect, Color.White, 0, 
                 new Vector2(55 / 2, 58), darthVader.scale, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "I am here!", new Vector2(darthVader.PositionX, darthVader.PositionY), Color.Red);
             // Draw projectile - rocket and smoke
             rocket.DrawProjectile(spriteBatch, Color.Red);
             rocket.DrawSmoke(spriteBatch);
@@ -234,8 +238,8 @@ namespace NoTitleGame
             // Draw stats
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             DirectDraw.DrawBottomStats(UIBackground, progressBar, darthVader, graphics, device, spriteBatch, font);
-            spriteBatch.DrawString(font, darthVader.Power.ToString(), new Vector2(10, 10), Color.Black);
-            spriteBatch.DrawString(font, darthVader.Angle.ToString(), new Vector2(10, 30), Color.Black);
+            spriteBatch.DrawString(font, darthVader.PositionX.ToString(), new Vector2(10, 10), Color.Black);
+            spriteBatch.DrawString(font, darthVader.PositionY.ToString(), new Vector2(10, 30), Color.Black);
             spriteBatch.End();
 
             base.Draw(gameTime);
