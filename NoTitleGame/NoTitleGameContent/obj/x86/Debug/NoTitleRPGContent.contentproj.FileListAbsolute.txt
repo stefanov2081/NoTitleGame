@@ -1,1 +1,2 @@
 E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGameContent\obj\x86\Debug\NoTitleRPGContent.contentprojResolveAssemblyReference.cache
+C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGameContent\obj\x86\Debug\NoTitleRPGContent.contentprojResolveAssemblyReference.cache

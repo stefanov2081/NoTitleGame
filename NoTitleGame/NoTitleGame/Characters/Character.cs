@@ -488,27 +488,13 @@
 
         public void RotateWeaponAngle(Character currChar)
         {
-            if (this.FacingRight)
+            if (keybState.IsKeyDown(Keys.Up))
             {
-                if (keybState.IsKeyDown(Keys.Up))
-                {
-                    currChar.Angle -= 0.01f;
-                }
-                if (keybState.IsKeyDown(Keys.Down))
-                {
-                    currChar.Angle += 0.01f;
-                }
+                currChar.Angle -= 0.01f;
             }
-            else
+            if (keybState.IsKeyDown(Keys.Down))
             {
-                if (keybState.IsKeyDown(Keys.Up))
-                {
-                    currChar.Angle += 0.01f;
-                }
-                if (keybState.IsKeyDown(Keys.Down))
-                {
-                    currChar.Angle -= 0.01f;
-                }
+                currChar.Angle += 0.01f;
             }
         }
     }

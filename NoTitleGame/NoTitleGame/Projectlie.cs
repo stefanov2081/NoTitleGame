@@ -170,7 +170,7 @@
                     Matrix rotMatrix = Matrix.CreateRotationZ(this.ProjectileAngle);
                     this.ProjectileDirection = Vector2.Transform(up, rotMatrix);
                     this.ProjectileDirection *= currentCharacter.Power / 50.0f;
-                    this.projectileDirection *= -1;
+                    this.projectileDirection.X *= -1;
                 }
             }
         }
