@@ -81,7 +81,7 @@ namespace NoTitleGame
             // Set window size
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 800;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             // Enable mouse
@@ -327,10 +327,6 @@ namespace NoTitleGame
             // Draw stats
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             DirectDraw.DrawBottomStats(UIBackground, progressBar, darthVader, graphics, device, spriteBatch, font);
-            spriteBatch.DrawString(font, darthVader.Angle.ToString(), new Vector2(10, 10), Color.Yellow);
-            spriteBatch.DrawString(font, darthVader.Angle.ToString(), new Vector2(10, 30), Color.Yellow);
-            spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 50), Color.Yellow);
-            spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 70), Color.Yellow);
             
             // Draw test character's inventory
             DirectDraw.DrawInventory(vaderInventory, device, spriteBatch);
