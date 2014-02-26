@@ -80,6 +80,7 @@
     <Compile Include="Characters\Padawan.cs" />
     <Compile Include="DrawRectangle.cs" />
     <Compile Include="Exceptions\CharacterHasDiedException.cs" />
+    <Compile Include="Explosions.cs" />
     <Compile Include="Foreground.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />

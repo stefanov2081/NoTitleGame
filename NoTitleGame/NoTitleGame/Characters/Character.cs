@@ -19,6 +19,7 @@
 
         // Default terrain sprite
         private Texture2D characterTexture;
+        private Color[,] colourArray;
         // Sounds
         private SoundEffect jumpSound;
 
@@ -39,7 +40,7 @@
         private ActiveItemType selectedWeapon;  //which weapon the char will fire
         private float angle;
         private float power;
-        //private bool isAlive; //no need for a field it's only a property
+        private bool isAlive; //no need for a field it's only a property
         
         //Variables needed for jumping
         private bool isJumping;     //Determines wether the char is jumping
@@ -50,11 +51,11 @@
         private bool running;
 
         // IAnimate automatic fields
-        public int frames { get; set; }
-        public float elapsed { get; set; }
-        public float scale { get; set; }
-        public bool facingRight { get; set; }
-        public Rectangle sourceRect { get; set; }
+        public int Frames { get; set; }
+        public float Elapsed { get; set; }
+        public float Scale { get; set; }
+        public bool FacingRight { get; set; }
+        public Rectangle SourceRect { get; set; }
 
         // Keyboard state fields
         private KeyboardState keybState;
@@ -70,6 +71,11 @@
         {
             get { return this.jumpSound; }
             set { this.jumpSound = value; }
+        }
+        public Color[,] ColourArray
+        {
+            get { return this.colourArray; }
+            set { this.colourArray = value; }
         }
         public int Strength 
         {
@@ -138,7 +144,8 @@
         }
         public bool IsAlive
         {
-            get { return this.maxHealth > 0; }
+            get { return this.isAlive; }
+            set { this.isAlive = value; }
         }
         public bool IsJumping
         {
@@ -187,9 +194,9 @@
             this.Level = level;
 
             // Animation-related
-            this.facingRight = true;
-            this.elapsed = 0;
-            this.frames = 0;
+            this.FacingRight = true;
+            this.Elapsed = 0;
+            this.Frames = 0;
 
             //Jump-related
             this.IsJumping = false;
@@ -199,6 +206,8 @@
             this.Inventory = new List<ActiveItem>();
             LoadActiveItem(DEFAULT_NUMBER_OF_BAZOOKAS, ActiveItemType.Bazooka);
             LoadActiveItem(DEFAULT_NUMBER_OF_SHOTGUNS, ActiveItemType.Shotgun);
+
+            this.IsAlive = true;
         }
 
         // Empty constructor
@@ -253,87 +262,87 @@
         // Animate character when idle
         public void AnimateCharacterIdle(float delay, GameTime gameTime = null)
         {
-            this.elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            this.Elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.elapsed >= delay)
+            if (this.Elapsed >= delay)
             {
-                if (this.frames >= 3)
+                if (this.Frames >= 3)
                 {
-                    this.frames = 0;
+                    this.Frames = 0;
                 }
                 else
                 {
-                    this.frames++;
+                    this.Frames++;
                 }
 
-                this.elapsed = 0;
+                this.Elapsed = 0;
             }
 
-            if (facingRight)
+            if (FacingRight)
             {
-                this.sourceRect = new Rectangle(58 * frames, 10, 58, 55);
+                this.SourceRect = new Rectangle(58 * Frames, 10, 58, 55);
             }
             else
             {
-                this.sourceRect = new Rectangle(406 - 58 * frames, 10, 58, 55);
+                this.SourceRect = new Rectangle(406 - 58 * Frames, 10, 58, 55);
             }
         }
 
         // Animate character when moving
         public void AnimateCharacterRun(float delay, GameTime gameTime)
         {
-            this.elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            this.Elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.elapsed >= delay)
+            if (this.Elapsed >= delay)
             {
-                if (this.frames >= 7)
+                if (this.Frames >= 7)
                 {
-                    this.frames = 0;
+                    this.Frames = 0;
                 }
                 else
                 {
-                    this.frames++;
+                    this.Frames++;
                 }
 
-                this.elapsed = 0;
+                this.Elapsed = 0;
             }
 
-            if (this.facingRight)
+            if (this.FacingRight)
             {
-                this.sourceRect = new Rectangle(58 * frames, 143, 58, 55);
+                this.SourceRect = new Rectangle(58 * Frames, 143, 58, 55);
             }
             else
             {
-                this.sourceRect = new Rectangle(406 - 58 * frames, 220, 58, 55);
+                this.SourceRect = new Rectangle(406 - 58 * Frames, 220, 58, 55);
             }
         }
 
         // Animate character when jumping
         public void AnimateCharacterJump(float delay, GameTime gameTime)
         {
-            this.elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            this.Elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (this.elapsed >= delay)
+            if (this.Elapsed >= delay)
             {
-                if (this.frames >= 7)
+                if (this.Frames >= 7)
                 {
-                    this.frames = 0;
+                    this.Frames = 0;
                 }
                 else
                 {
-                    this.frames++;
+                    this.Frames++;
                 }
 
-                this.elapsed = 0;
+                this.Elapsed = 0;
 
-                if (facingRight)
+                if (FacingRight)
                 {
-                    this.sourceRect = new Rectangle(58 * frames, 790, 58, 55);
+                    this.SourceRect = new Rectangle(58 * Frames, 790, 58, 55);
                 }
                 else
                 {
                     //this.sourceRect = new Rectangle(928 - 58 * frames, 790, 58, 55);
-                    this.sourceRect = new Rectangle(870 - 58 * frames, 790, 58, 55);
+                    this.SourceRect = new Rectangle(870 - 58 * Frames, 790, 58, 55);
                 }
             }
         }
@@ -395,7 +404,7 @@
             if (this.keybState.IsKeyDown(Keys.Left))
             {
                 this.idle = false;
-                this.facingRight = false;
+                this.FacingRight = false;
                 if (!this.IsJumping)
                 {
                     this.running = true;
@@ -413,7 +422,7 @@
             if (this.keybState.IsKeyDown(Keys.Right))
             {
                 this.idle = false;
-                this.facingRight = true;
+                this.FacingRight = true;
                 if (!this.IsJumping)
                 {
                     this.running = true;
@@ -480,14 +489,27 @@
 
         public void RotateWeaponAngle(Character currChar)
         {
-            // Rotate cannon
-            if (keybState.IsKeyDown(Keys.Up))
+            if (this.FacingRight)
             {
-                currChar.Angle -= 0.01f;
+                if (keybState.IsKeyDown(Keys.Up))
+                {
+                    currChar.Angle -= 0.01f;
+                }
+                if (keybState.IsKeyDown(Keys.Down))
+                {
+                    currChar.Angle += 0.01f;
+                }
             }
-            if (keybState.IsKeyDown(Keys.Down))
+            else
             {
-                currChar.Angle += 0.01f;
+                if (keybState.IsKeyDown(Keys.Up))
+                {
+                    currChar.Angle += 0.01f;
+                }
+                if (keybState.IsKeyDown(Keys.Down))
+                {
+                    currChar.Angle -= 0.01f;
+                }
             }
         }
     }

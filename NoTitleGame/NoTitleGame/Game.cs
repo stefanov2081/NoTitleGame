@@ -19,11 +19,15 @@ namespace NoTitleGame
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
-        
         // Declare different objects
         // Declare graphics device
         public static GraphicsDevice device;
 
+        //Message box stuff
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern uint MessageBox(IntPtr hWnd, String text, String caption, uint type);
+
+        
         // Deckare random generator
         Random random;
 
@@ -39,8 +43,10 @@ namespace NoTitleGame
         // Declare foreground
         Foreground foreground;
 
-        // Declare test character
+        // Declare test characters
         Character darthVader;
+        Character lukeSkywallker;
+        Texture2D checkCharColl;
 
         // Holds the total number of characters for turned based game and current player turn here could be added a turn timer
         TurnInfo turnInfo;
@@ -54,15 +60,12 @@ namespace NoTitleGame
         // Declare user interface rectangle and background pixel
         DrawRectangle UIBackground;
         DrawRectangle progressBar;
+        
         SpriteFont font;
 
         // Default graphics device
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        //Message box stuff
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern uint MessageBox(IntPtr hWnd, String text, String caption, uint type);
 
         void MsgBox(string caption, string message)
         {
@@ -79,8 +82,6 @@ namespace NoTitleGame
             graphics.PreferredBackBufferHeight = 800;
             graphics.IsFullScreen = false;
             graphics.ApplyChanges();
-
-            
 
             // Enable mouse
             this.IsMouseVisible = true;
@@ -135,21 +136,40 @@ namespace NoTitleGame
             darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 15, 0);
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
             darthVader.JumpSound = Content.Load<SoundEffect>("jump");
-            darthVader.scale = 1.0f;
-            darthVader.SetOnRadnomPosition(random);
+
+            lukeSkywallker = new Master(0, 0, "Luke Skywallker", 888, 888, 888, 888, 14, 0);
+            lukeSkywallker.CharacterTexture = Content.Load<Texture2D>("nssheet");
+            lukeSkywallker.JumpSound = Content.Load<SoundEffect>("jump");
+
+            turnInfo = new TurnInfo(2);
+            turnInfo.Players.Add(darthVader);
+            turnInfo.Players.Add(lukeSkywallker);
+            turnInfo.SetUpPlayers(random, 1.0f);
+
+            checkCharColl = Content.Load<Texture2D>("checkCharCollision");
 
             // Load test rocket and smoke trail
-            rocket = new Projectlie(new Vector2(darthVader.PositionX, darthVader.PositionY), 1f, 1.0f);
+            rocket = new Projectlie(new Vector2(0, 0), 0.1f, 1.0f);
             rocket.ProjectileTexture = Content.Load<Texture2D>("rocket");
             rocket.SmokeTexture = Content.Load<Texture2D>("smoke");
 
-            // Load angle of weapon
-            darthVader.Angle = MathHelper.ToRadians(90);
+            // Load particle list
+            Explosions.particleList = new List<ParticleData>();
+
+            // Load Explosion
+            Explosions.explosion = Content.Load<Texture2D>("explosion");
 
             // Load stats bar
             UIBackground = new DrawRectangle(GraphicsDevice, Content.Load<Texture2D>("UIBack"));
             progressBar = new DrawRectangle(GraphicsDevice, Content.Load<Texture2D>("progressBar"));
             progressBar.Rectangle = GraphicsDevice.Viewport.TitleSafeArea;
+
+            // Create colour arrays of every collidable object
+            foreground.colourArray = TextureToArray.TextureTo2DArray(foreground.GroundTexture);
+            darthVader.ColourArray = TextureToArray.TextureTo2DArray(checkCharColl);
+            lukeSkywallker.ColourArray = TextureToArray.TextureTo2DArray(checkCharColl);
+            rocket.ColourArray = TextureToArray.TextureTo2DArray(rocket.ProjectileTexture);
+            Explosions.explosionColourArray = TextureToArray.TextureTo2DArray(Explosions.explosion);
 
             // Load font
             font = Content.Load<SpriteFont>("Font");
@@ -180,9 +200,19 @@ namespace NoTitleGame
 
             // Proccess animations
             darthVader.ProccessAnimations(100, gameTime);
+            lukeSkywallker.ProccessAnimations(100, gameTime);
             rocket.UpdateProjectile(random);
+
+            if (rocket.ProjectileFlying)
+            {
+                rocket.UpdateProjectile(random);
+                turnInfo.CheckCollisions(gameTime, rocket, random, turnInfo, foreground, world);
+            }
+            if (Explosions.particleList.Count > 0)
+            {
+                Explosions. UpdateParticles(gameTime);
+            }
             
-            // Is called without conditions due to the jumping
             try
             {
                 darthVader.ProcessKeyboard(darthVader, rocket);
@@ -196,11 +226,6 @@ namespace NoTitleGame
             }
             //TODO: Before the character fires call the character.UpdateSelectedWeaponPosition()
             //And make sure the character has selected the weapon he wishes to fire
-
-            // Tests stats bars logic
-            darthVader.CurrentHealth --;
-            darthVader.CurrentMana -= 2;
-            darthVader.CurrentShield -= 3;
 
             // Follow camera
             camera.Update(new Vector2(darthVader.PositionX, darthVader.PositionY));
@@ -217,6 +242,10 @@ namespace NoTitleGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            // Global transformation
+            Vector3 screenScalingFactor = new Vector3(1, 1, 1);
+            Matrix globalTransformation = Matrix.CreateScale(screenScalingFactor);
+
             // Draw background
             spriteBatch.Begin();
             spriteBatch.Draw(background.BackgroundTexture, world.GameWorldDimensions, Color.White);
@@ -227,12 +256,30 @@ namespace NoTitleGame
             // Draw foreground
             spriteBatch.Draw(foreground.GeneratedForeground, world.GameWorldDimensions, Color.White);
             // Draw test character
-            spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.sourceRect, Color.White, 0, 
-                new Vector2(55 / 2, 58), darthVader.scale, SpriteEffects.None, 0);
-            spriteBatch.DrawString(font, "I am here!", new Vector2(darthVader.PositionX, darthVader.PositionY), Color.Red);
-            // Draw projectile - rocket and smoke
-            rocket.DrawProjectile(spriteBatch, Color.Red);
-            rocket.DrawSmoke(spriteBatch);
+            // Dart Vader
+            spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.SourceRect, Color.White, 0, 
+                new Vector2(55 / 2, 58), darthVader.Scale, SpriteEffects.None, 0);
+            // Luke Skywallker
+            spriteBatch.Draw(lukeSkywallker.CharacterTexture, new Vector2(lukeSkywallker.PositionX, lukeSkywallker.PositionY),
+                lukeSkywallker.SourceRect, Color.White, 0, new Vector2(55 / 2, 58), lukeSkywallker.Scale, SpriteEffects.None, 0);
+            spriteBatch.End();
+
+
+            if (rocket.ProjectileFlying)
+            {
+                //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
+                // Draw projectile - rocket and smoke
+                spriteBatch.Draw(rocket.ProjectileTexture, rocket.ProjectilePosition, null, Color.Red,
+                        rocket.ProjectileAngle, new Vector2(42, 240), rocket.ProjectileScaling, SpriteEffects.None, 1);
+                rocket.DrawSmoke(spriteBatch);
+                //rocket.DrawProjectile(spriteBatch, Color.Red);
+                
+                spriteBatch.End();
+            }
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, camera.Transform);
+            Explosions.DrawExplosion(spriteBatch);
             spriteBatch.End();
 
             // Draw stats
@@ -240,6 +287,8 @@ namespace NoTitleGame
             DirectDraw.DrawBottomStats(UIBackground, progressBar, darthVader, graphics, device, spriteBatch, font);
             spriteBatch.DrawString(font, darthVader.PositionX.ToString(), new Vector2(10, 10), Color.Black);
             spriteBatch.DrawString(font, darthVader.PositionY.ToString(), new Vector2(10, 30), Color.Black);
+            spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 50), Color.Black);
+            spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 70), Color.Black);
             spriteBatch.End();
 
             base.Draw(gameTime);

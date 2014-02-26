@@ -34,3 +34,5 @@ E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\jump
 E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\Font.xnb
 C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\rocket.xnb
 C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\smoke.xnb
+C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\explosion.xnb
+C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\checkCharCollision.xnb

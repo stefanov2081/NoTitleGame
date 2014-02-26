@@ -4,11 +4,11 @@ namespace NoTitleGame
     interface IAnimate
     {
         // Fields with automatic properties
-        int frames { get; set; }
-        float elapsed { get; set; }
-        float scale { get; set; }
-        bool facingRight { get; set; }
-        Rectangle sourceRect { get; set; }
+        int Frames { get; set; }
+        float Elapsed { get; set; }
+        float Scale { get; set; }
+        bool FacingRight { get; set; }
+        Rectangle SourceRect { get; set; }
 
         // Proccess animations
         void ProccessAnimations(float delay, GameTime gameTime);

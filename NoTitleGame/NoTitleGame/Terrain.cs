@@ -1,7 +1,9 @@
 ﻿namespace NoTitleGame
 {
     using System;
-    class Terrain : GameWorld
+    using Microsoft.Xna.Framework;
+
+    public class Terrain : GameWorld
     {
         // Store the y values of the terrain contour
         public static int[] terrainContour;
@@ -37,6 +39,36 @@
                 height += peakheight / rand3 * Math.Sin((float)x / flatness * rand3 + rand3);
                 height += offset;
                 terrainContour[x] = (int)height;
+            }
+        }
+
+        // Add craters after explosion
+        public static void AddCrater(Color[,] tex, Matrix mat, GameWorld world)
+        {
+            int width = tex.GetLength(0);
+            int height = tex.GetLength(1);
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (tex[x, y].R > 10)
+                    {
+                        Vector2 imagePos = new Vector2(x, y);
+                        Vector2 screenPos = Vector2.Transform(imagePos, mat);
+
+                        int screenX = (int)screenPos.X;
+                        int screenY = (int)screenPos.Y;
+
+                        if ((screenX) > 0 && (screenX < world.Width))
+                        {
+                            if (terrainContour[screenX] < screenY)
+                            {
+                                terrainContour[screenX] = screenY;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

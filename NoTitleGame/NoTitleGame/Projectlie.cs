@@ -14,6 +14,7 @@ namespace NoTitleGame
         private Texture2D smokeTexture;
         private Vector2 projectilePosition;
         private Vector2 projectileDirection;
+        private Color[,] colourArray;
         private bool projectileFlying;
         private float projectileAngle;
         private float projectileScaling;
@@ -84,6 +85,12 @@ namespace NoTitleGame
             set { this.gravity = value; }
         }
 
+        public Color[,] ColourArray
+        {
+            get { return this.colourArray; }
+            set { this.colourArray = value; }
+        }
+
         // Methods
         public void DrawProjectile(SpriteBatch spriteBatch, Color colour)
         {
@@ -126,6 +133,15 @@ namespace NoTitleGame
             }
         }
 
+        private void DrawRocket(SpriteBatch spriteBatch, Projectlie currProj, TurnInfo infor)
+        {
+            if (currProj.ProjectileFlying)
+            {
+                spriteBatch.Draw(currProj.ProjectileTexture, currProj.ProjectilePosition, null, Color.Red,
+                    currProj.ProjectileAngle, new Vector2(42, 240), currProj.ProjectileScaling, SpriteEffects.None, 1);
+            }
+        }
+
         // Fire projectile
         public void FireProjectile(Character currentCharacter)
         {
@@ -137,14 +153,26 @@ namespace NoTitleGame
                 //    launch.Play();
                 //}
 
-                this.ProjectilePosition = new Vector2(currentCharacter.PositionX + 20, currentCharacter.PositionY - 10);
+                this.ProjectilePosition = new Vector2(currentCharacter.PositionX, currentCharacter.PositionY - 40 * currentCharacter.Scale);
                 this.ProjectileAngle = currentCharacter.Angle;
 
-                // Rotate rocket
-                Vector2 up = new Vector2(0, -1);
-                Matrix rotMatrix = Matrix.CreateRotationZ(this.ProjectileAngle);
-                this.ProjectileDirection = Vector2.Transform(up, rotMatrix);
-                this.ProjectileDirection *= currentCharacter.Power / 50.0f;
+                if (currentCharacter.FacingRight)
+                {
+                    // Rotate rocket
+                    Vector2 up = new Vector2(0, -1);
+                    Matrix rotMatrix = Matrix.CreateRotationZ(this.ProjectileAngle);
+                    this.ProjectileDirection = Vector2.Transform(up, rotMatrix);
+                    this.ProjectileDirection *= currentCharacter.Power / 50.0f;
+                }
+                else
+                {
+                    // Rotate rocket
+                    Vector2 up = new Vector2(0, -1);
+                    Matrix rotMatrix = Matrix.CreateRotationZ(this.ProjectileAngle);
+                    this.ProjectileDirection = Vector2.Transform(up, rotMatrix);
+                    this.ProjectileDirection *= currentCharacter.Power / 50.0f;
+                    this.projectileDirection *= -1;
+                }
             }
         }
     }

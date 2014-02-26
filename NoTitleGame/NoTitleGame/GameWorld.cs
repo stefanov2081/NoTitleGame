@@ -1,7 +1,7 @@
 ﻿namespace NoTitleGame
 {
     using Microsoft.Xna.Framework;
-    class GameWorld
+    public class GameWorld
     {
         // Fields for the dimensions of the game world
         private int width;

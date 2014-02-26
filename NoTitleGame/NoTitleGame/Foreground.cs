@@ -2,7 +2,7 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    class Foreground : Terrain, ICollidable
+    public class Foreground : Terrain, ICollidable
     {
         // Default terrain sprite
         private Texture2D groundTexture;

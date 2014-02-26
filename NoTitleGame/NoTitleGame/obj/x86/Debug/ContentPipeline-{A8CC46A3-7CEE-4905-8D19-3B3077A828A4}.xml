@@ -88,6 +88,24 @@
       <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\smoke.xnb</Output>
       <Time>2014-02-26T13:13:39.2539834+02:00</Time>
     </Item>
+    <Item>
+      <Source>explosion.png</Source>
+      <Name>explosion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\explosion.xnb</Output>
+      <Time>2014-02-26T17:17:11.4177514+02:00</Time>
+    </Item>
+    <Item>
+      <Source>checkCharCollision.png</Source>
+      <Name>checkCharCollision</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\checkCharCollision.xnb</Output>
+      <Time>2014-02-26T21:25:47.2198865+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{A8CC46A3-7CEE-4905-8D19-3B3077A828A4}</ContentProjectGUID>
