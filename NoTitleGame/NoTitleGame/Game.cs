@@ -283,10 +283,16 @@ namespace NoTitleGame
             spriteBatch.Draw(foreground.GeneratedForeground, world.GameWorldDimensions, Color.White);
             // Draw test characters
             // Dart Vader
+            spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.SourceRect, Color.White, 0,
+                   new Vector2(55 / 2, 58), darthVader.Scale, SpriteEffects.None, 0);
+            // Luke Skywallker
+            spriteBatch.Draw(lukeSkywallker.CharacterTexture, new Vector2(lukeSkywallker.PositionX, lukeSkywallker.PositionY),
+                lukeSkywallker.SourceRect, Color.White, 0, new Vector2(55 / 2, 58), lukeSkywallker.Scale, SpriteEffects.None, 0);
+
+            // Crosshair
             if (darthVader.FacingRight)
             {
-                spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.SourceRect, Color.White, 0,
-                    new Vector2(55 / 2, 58), darthVader.Scale, SpriteEffects.None, 0);
+
                 spriteBatch.Draw(darthVader.CrosshairTexture,
                     new Rectangle((int)(darthVader.PositionX), (int)(darthVader.PositionY - 50 * darthVader.Scale), 80, 20),
                     new Rectangle(0, 0, darthVader.CrosshairTexture.Width, darthVader.CrosshairTexture.Height), Color.Yellow,
@@ -295,17 +301,12 @@ namespace NoTitleGame
             }
             else
             {
-                spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.SourceRect, Color.White, 0,
-                    new Vector2(55 / 2, 58), darthVader.Scale, SpriteEffects.None, 0);
                 spriteBatch.Draw(darthVader.CrosshairTexture,
                     new Rectangle((int)(darthVader.PositionX), (int)(darthVader.PositionY - 50 * darthVader.Scale), 80, 20),
                     new Rectangle(0, 0, darthVader.CrosshairTexture.Width, darthVader.CrosshairTexture.Height), Color.Yellow,
                     (darthVader.Angle - 1.57079632f) + 1.57079632f,
                     new Vector2(0, darthVader.CrosshairTexture.Height / 2), SpriteEffects.None, 0);
             }
-            // Luke Skywallker
-            spriteBatch.Draw(lukeSkywallker.CharacterTexture, new Vector2(lukeSkywallker.PositionX, lukeSkywallker.PositionY),
-                lukeSkywallker.SourceRect, Color.White, 0, new Vector2(55 / 2, 58), lukeSkywallker.Scale, SpriteEffects.None, 0);
             spriteBatch.End();
 
             if (rocket.ProjectileFlying)
