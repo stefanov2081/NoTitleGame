@@ -34,3 +34,4 @@ C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\De
 C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\NoTitleGame.exe
 C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\NoTitleGame.pdb
+C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\crosshair.xnb
