@@ -168,10 +168,10 @@ namespace NoTitleGame
             }
             catch (CharacterHasDiedException e)
             {
-                graphics.IsFullScreen = false;
-                graphics.ApplyChanges();
-                MsgBox("Death", e.Message);
-                Environment.Exit(0);
+                //graphics.IsFullScreen = false;
+                //graphics.ApplyChanges();
+                //MsgBox("Death", e.Message);
+                //Environment.Exit(1);
             }
             //TODO: Before the character fires call the character.UpdateSelectedWeaponPosition()
             //And make sure the character has selected the weapon he wishes to fire
