@@ -20,6 +20,7 @@
         // Default terrain sprite
         private Texture2D characterTexture;
         private Texture2D crosshairTexture;
+        private Texture2D crosshairTextureL;
         private Color[,] colourArray;
         // Sounds
         private SoundEffect jumpSound;
@@ -72,6 +73,11 @@
         {
             get { return this.crosshairTexture; }
             set { this.crosshairTexture = value; }
+        }
+        public Texture2D CrosshairTextureL
+        {
+            get { return this.crosshairTextureL; }
+            set { this.crosshairTextureL = value; }
         }
         public SoundEffect JumpSound
         {

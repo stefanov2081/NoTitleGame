@@ -11,3 +11,4 @@ Content\inventory.xnb
 Content\jump.xnb
 Content\Font.xnb
 Content\crosshair.xnb
+Content\crosshairLeft.xnb

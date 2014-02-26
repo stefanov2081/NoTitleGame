@@ -81,7 +81,7 @@ namespace NoTitleGame
             // Set window size
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 800;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
 
             // Enable mouse
@@ -134,6 +134,7 @@ namespace NoTitleGame
             darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 15, 0);
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
             darthVader.CrosshairTexture = Content.Load<Texture2D>("crosshair");
+            darthVader.CrosshairTextureL = Content.Load<Texture2D>("crosshairLeft");
             darthVader.JumpSound = Content.Load<SoundEffect>("jump");
 
             lukeSkywallker = new Master(0, 0, "Luke Skywallker", 888, 888, 888, 888, 14, 0);
@@ -301,11 +302,11 @@ namespace NoTitleGame
             }
             else
             {
-                spriteBatch.Draw(darthVader.CrosshairTexture,
-                    new Rectangle((int)(darthVader.PositionX), (int)(darthVader.PositionY - 50 * darthVader.Scale), 80, 20),
+                spriteBatch.Draw(darthVader.CrosshairTextureL,
+                    new Rectangle((int)(darthVader.PositionX - 20), (int)(darthVader.PositionY - 50 * darthVader.Scale), 80, 20),
                     new Rectangle(0, 0, darthVader.CrosshairTexture.Width, darthVader.CrosshairTexture.Height), Color.Yellow,
-                    (darthVader.Angle - 1.57079632f) + 1.57079632f,
-                    new Vector2(0, darthVader.CrosshairTexture.Height / 2), SpriteEffects.None, 0);
+                    -(darthVader.Angle - 1.57079632f),
+                    new Vector2(darthVader.CrosshairTextureL.Width, darthVader.CrosshairTextureL.Height / 2), SpriteEffects.None, 0);
             }
             spriteBatch.End();
 
@@ -326,10 +327,10 @@ namespace NoTitleGame
             // Draw stats
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             DirectDraw.DrawBottomStats(UIBackground, progressBar, darthVader, graphics, device, spriteBatch, font);
-            spriteBatch.DrawString(font, darthVader.PositionX.ToString(), new Vector2(10, 10), Color.Black);
-            spriteBatch.DrawString(font, darthVader.PositionY.ToString(), new Vector2(10, 30), Color.Black);
-            spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 50), Color.Black);
-            spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 70), Color.Black);
+            spriteBatch.DrawString(font, darthVader.Angle.ToString(), new Vector2(10, 10), Color.Yellow);
+            spriteBatch.DrawString(font, darthVader.Angle.ToString(), new Vector2(10, 30), Color.Yellow);
+            spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 50), Color.Yellow);
+            spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 70), Color.Yellow);
             
             // Draw test character's inventory
             DirectDraw.DrawInventory(vaderInventory, device, spriteBatch);

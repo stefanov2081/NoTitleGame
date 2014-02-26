@@ -127,6 +127,18 @@
       <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\crosshair.xnb</Output>
       <Time>2014-02-27T00:08:46.4672861+02:00</Time>
     </Item>
+    <Item>
+      <Source>crosshairLeft.png</Source>
+      <Name>crosshairLeft</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor">255, 255, 255, 255</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\crosshairLeft.xnb</Output>
+      <Time>2014-02-27T00:58:19.2773211+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{A8CC46A3-7CEE-4905-8D19-3B3077A828A4}</ContentProjectGUID>
