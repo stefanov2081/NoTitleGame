@@ -1,4 +1,4 @@
-﻿namespace NoTitleGame
+﻿namespace Interfaces
 {
     interface IMoveable
     {

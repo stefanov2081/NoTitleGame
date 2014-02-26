@@ -2,7 +2,6 @@
 {
     using System;
     using Microsoft.Xna.Framework;
-
     public class Terrain : GameWorld
     {
         // Store the y values of the terrain contour

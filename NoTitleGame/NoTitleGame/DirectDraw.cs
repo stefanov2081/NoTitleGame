@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Characters;
-
-namespace NoTitleGame
+﻿namespace NoTitleGame
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using Characters;
     public static class DirectDraw
     {
         // Draw anywhere
@@ -40,6 +39,13 @@ namespace NoTitleGame
                                             rectangleToDraw.Y,
                                             thicknessOfBorder,
                                             rectangleToDraw.Height), borderColor);
+        }
+
+        // Draw inventory
+        public static void DrawInventory(Inventory inventoryObject, GraphicsDevice device, SpriteBatch spriteBatch)
+        {
+            int imageHeight = device.PresentationParameters.BackBufferHeight / 3;
+            DirectDraw.DrawAnywhere(inventoryObject.InventoryRectangle, imageHeight, Color.Wheat, inventoryObject.Pixel, spriteBatch, inventoryObject.InventoryRectangle.X, inventoryObject.InventoryRectangle.Y, 300, 300);
         }
 
         // Draws bottom stats bars and info

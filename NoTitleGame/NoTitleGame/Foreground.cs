@@ -2,6 +2,7 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Interfaces;
     public class Foreground : Terrain, ICollidable
     {
         // Default terrain sprite
@@ -10,12 +11,6 @@
         private Texture2D generatedForeground;
         // ICollidable colour matrix
         private Color[,] foregrounColourArray;
-
-        // Default constructor
-        public Foreground(int width, int height)
-            : base(width, height)
-        { 
-        }
 
         // Properties
         public Texture2D GroundTexture
@@ -30,7 +25,6 @@
             set { this.generatedForeground = value; }
         }
 
-        // ICollidable colour matrix
         public Color[,] colourArray
         {
             get { return this.foregrounColourArray; }
@@ -38,6 +32,11 @@
         }
 
         // Methods
+        // Default constructor
+        public Foreground(int width, int height)
+            : base(width, height)
+        {
+        }
         // Generate foreground
         public void CreateForeground()
         {

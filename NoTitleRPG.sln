@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoTitleGame", "NoTitleGame\NoTitleGame\NoTitleGame.csproj", "{49424CA2-6984-41AD-A378-6921CCE8A725}"
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoTitleRPG", "NoTitleGame\NoTitleGame\NoTitleRPG.csproj", "{49424CA2-6984-41AD-A378-6921CCE8A725}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "NoTitleGameContent", "NoTitleGame\NoTitleGameContent\NoTitleGameContent.contentproj", "{A8CC46A3-7CEE-4905-8D19-3B3077A828A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoTitleRPGContent", "NoTitleGame\NoTitleGameContent\NoTitleRPGContent.contentproj", "{A8CC46A3-7CEE-4905-8D19-3B3077A828A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

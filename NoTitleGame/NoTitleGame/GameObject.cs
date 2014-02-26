@@ -13,7 +13,6 @@
             get { return this.positionX; }
             set { this.positionX = value; }
         }
-
         public int PositionY
         {
             get { return this.positionY; }

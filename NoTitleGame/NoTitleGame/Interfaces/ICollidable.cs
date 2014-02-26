@@ -1,4 +1,4 @@
-﻿namespace NoTitleGame
+﻿namespace Interfaces
 {
     using Microsoft.Xna.Framework;
     interface ICollidable

@@ -1,9 +1,5 @@
-using Characters;
-using NoTitleGame;
-
 namespace NoTitleGame
 {
-    
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -12,8 +8,8 @@ namespace NoTitleGame
     using System.Collections.Generic;
     using System;
     using System.Runtime.InteropServices;
+    using Characters;
     
-
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -23,12 +19,7 @@ namespace NoTitleGame
         // Declare graphics device
         public static GraphicsDevice device;
 
-        //Message box stuff
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern uint MessageBox(IntPtr hWnd, String text, String caption, uint type);
-
-        
-        // Deckare random generator
+        // Declare random generator
         Random random;
 
         // Declare game world
@@ -67,11 +58,21 @@ namespace NoTitleGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        void MsgBox(string caption, string message)
-        {
-            MessageBox(new IntPtr(0), message, caption, 0);
-        }
-        
+        // Declare test character's inventory
+ 		Inventory vaderInventory;
+ 		
+ 		// Declare mouse fields
+ 		CursorCoordinates mouseCoords;
+ 		Rectangle mouseRectangle;
+ 		MouseState currentMouseState;
+ 		MouseState previousMouseState;
+ 		
+ 		// Delegate definition of the event
+ 		public delegate void FiredEvent(object sender);
+ 		
+ 		// Instances of delegate event
+ 		public FiredEvent OnMouseClick;
+
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -80,7 +81,7 @@ namespace NoTitleGame
             // Set window size
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 800;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
 
             // Enable mouse
@@ -95,8 +96,6 @@ namespace NoTitleGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -117,7 +116,6 @@ namespace NoTitleGame
 
             // Load game world
             world = new GameWorld(device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
-            //world = new GameWorld(2048, 1024);
 
             // Load background
             background = new Background(world.Width, world.Height);
@@ -176,6 +174,15 @@ namespace NoTitleGame
 
             // Load camera
             camera = new Camera(GraphicsDevice.Viewport);
+
+            // Load inventory
+ 		    vaderInventory = new Inventory(device, Content.Load<Texture2D>("inventory"), 990, 300);
+ 		    
+ 		    // Inventory starts listening to events
+ 		    vaderInventory.OnMouseClick += new FiredEvent(vaderInventory.MouseClick);
+ 		
+ 		    // Load mouse state
+ 		    currentMouseState = Mouse.GetState();
         }
 
         /// <summary>
@@ -184,7 +191,6 @@ namespace NoTitleGame
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -203,11 +209,36 @@ namespace NoTitleGame
             lukeSkywallker.ProccessAnimations(100, gameTime);
             rocket.UpdateProjectile(random);
 
+            // Get current cursor position
+            mouseCoords = new CursorCoordinates(Mouse.GetState().X, Mouse.GetState().Y);
+
+            // Get rectangle around mouse
+            mouseRectangle = new Rectangle(mouseCoords.X, mouseCoords.Y, 1, 1);
+
+            // Get previous mouse state because it is now old
+            previousMouseState = currentMouseState;
+
+            // Get current mouse state
+            currentMouseState = Mouse.GetState();
+
+            if (previousMouseState.LeftButton == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+            {
+                if (vaderInventory.InventoryRectangle.Contains(mouseRectangle))
+                {
+                    // Update test character's inventory 
+                    spriteBatch.Begin();
+                    vaderInventory.UpdateInventoryLocation(device, spriteBatch);
+                    spriteBatch.End();
+                    vaderInventory.OnMouseClick(this);
+                }
+            }
+
             if (rocket.ProjectileFlying)
             {
                 rocket.UpdateProjectile(random);
                 turnInfo.CheckCollisions(gameTime, rocket, random, turnInfo, foreground, world);
             }
+
             if (Explosions.particleList.Count > 0)
             {
                 Explosions. UpdateParticles(gameTime);
@@ -217,16 +248,10 @@ namespace NoTitleGame
             {
                 darthVader.ProcessKeyboard(darthVader, rocket);
             }
-            catch (CharacterHasDiedException) //e)
+            catch (CharacterHasDiedException)
             {
-                //graphics.IsFullScreen = false;
-                //graphics.ApplyChanges();
-                //MsgBox("Death", e.Message);
-                //Environment.Exit(1);
             }
-            //TODO: Before the character fires call the character.UpdateSelectedWeaponPosition()
-            //And make sure the character has selected the weapon he wishes to fire
-
+            
             // Follow camera
             camera.Update(new Vector2(darthVader.PositionX, darthVader.PositionY));
             camera.UpdateCameraPosition(new Vector2(darthVader.PositionX, darthVader.PositionY));
@@ -255,7 +280,7 @@ namespace NoTitleGame
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
             // Draw foreground
             spriteBatch.Draw(foreground.GeneratedForeground, world.GameWorldDimensions, Color.White);
-            // Draw test character
+            // Draw test characters
             // Dart Vader
             spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.SourceRect, Color.White, 0, 
                 new Vector2(55 / 2, 58), darthVader.Scale, SpriteEffects.None, 0);
@@ -264,17 +289,13 @@ namespace NoTitleGame
                 lukeSkywallker.SourceRect, Color.White, 0, new Vector2(55 / 2, 58), lukeSkywallker.Scale, SpriteEffects.None, 0);
             spriteBatch.End();
 
-
             if (rocket.ProjectileFlying)
             {
-                //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, camera.Transform);
                 // Draw projectile - rocket and smoke
                 spriteBatch.Draw(rocket.ProjectileTexture, rocket.ProjectilePosition, null, Color.Red,
                         rocket.ProjectileAngle, new Vector2(42, 240), rocket.ProjectileScaling, SpriteEffects.None, 1);
                 rocket.DrawSmoke(spriteBatch);
-                //rocket.DrawProjectile(spriteBatch, Color.Red);
-                
                 spriteBatch.End();
             }
 
@@ -289,6 +310,9 @@ namespace NoTitleGame
             spriteBatch.DrawString(font, darthVader.PositionY.ToString(), new Vector2(10, 30), Color.Black);
             spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 50), Color.Black);
             spriteBatch.DrawString(font, rocket.ProjectilePosition.X.ToString(), new Vector2(10, 70), Color.Black);
+            
+            // Draw test character's inventory
+            DirectDraw.DrawInventory(vaderInventory, device, spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

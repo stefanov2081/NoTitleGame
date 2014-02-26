@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\background.xnb</Output>
-      <Time>2014-02-26T12:35:40.4246418+02:00</Time>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\background.xnb</Output>
+      <Time>2014-02-26T21:47:37.7933177+02:00</Time>
     </Item>
     <Item>
       <Source>ground.jpg</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\ground.xnb</Output>
-      <Time>2014-02-26T12:35:40.4516434+02:00</Time>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\ground.xnb</Output>
+      <Time>2014-02-26T21:47:37.7983212+02:00</Time>
     </Item>
     <Item>
       <Source>nssheet.png</Source>
@@ -28,8 +28,8 @@
         <Data Key="ColorKeyColor">255, 255, 255, 255</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\nssheet.xnb</Output>
-      <Time>2014-02-26T12:35:40.5086466+02:00</Time>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\nssheet.xnb</Output>
+      <Time>2014-02-26T21:47:37.8053265+02:00</Time>
     </Item>
     <Item>
       <Source>progressBar.png</Source>
@@ -40,8 +40,8 @@
         <Data Key="ColorKeyColor">0, 0, 0, 255</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\progressBar.xnb</Output>
-      <Time>2014-02-26T12:35:40.5256476+02:00</Time>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\progressBar.xnb</Output>
+      <Time>2014-02-26T21:47:37.8125638+02:00</Time>
     </Item>
     <Item>
       <Source>UIBack.png</Source>
@@ -49,26 +49,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\UIBack.xnb</Output>
-      <Time>2014-02-26T12:35:40.4206416+02:00</Time>
-    </Item>
-    <Item>
-      <Source>jump.wav</Source>
-      <Name>jump</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\jump.xnb</Output>
-      <Time>2014-02-26T12:35:40.4916457+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Font.spritefont</Source>
-      <Name>Font</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\Font.xnb</Output>
-      <Time>2014-02-26T12:35:40.2246304+02:00</Time>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\UIBack.xnb</Output>
+      <Time>2014-02-26T21:47:37.7913172+02:00</Time>
     </Item>
     <Item>
       <Source>rocket.png</Source>
@@ -76,8 +58,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\rocket.xnb</Output>
-      <Time>2014-02-26T13:13:39.1829793+02:00</Time>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\rocket.xnb</Output>
+      <Time>2014-02-26T21:47:37.8125638+02:00</Time>
     </Item>
     <Item>
       <Source>smoke.png</Source>
@@ -85,8 +67,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\smoke.xnb</Output>
-      <Time>2014-02-26T13:13:39.2539834+02:00</Time>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\smoke.xnb</Output>
+      <Time>2014-02-26T21:47:37.8139493+02:00</Time>
     </Item>
     <Item>
       <Source>explosion.png</Source>
@@ -94,8 +76,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\explosion.xnb</Output>
-      <Time>2014-02-26T17:17:11.4177514+02:00</Time>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\explosion.xnb</Output>
+      <Time>2014-02-26T21:47:37.7963195+02:00</Time>
     </Item>
     <Item>
       <Source>checkCharCollision.png</Source>
@@ -103,8 +85,35 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\checkCharCollision.xnb</Output>
-      <Time>2014-02-26T21:25:47.2198865+02:00</Time>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\checkCharCollision.xnb</Output>
+      <Time>2014-02-26T21:47:37.7943169+02:00</Time>
+    </Item>
+    <Item>
+      <Source>jump.wav</Source>
+      <Name>jump</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\jump.xnb</Output>
+      <Time>2014-02-26T21:47:37.8033231+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Font.spritefont</Source>
+      <Name>Font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\Font.xnb</Output>
+      <Time>2014-02-26T21:47:37.769304+02:00</Time>
+    </Item>
+    <Item>
+      <Source>inventory.png</Source>
+      <Name>inventory</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\inventory.xnb</Output>
+      <Time>2014-02-26T19:49:20.7519687+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -113,39 +122,39 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGameContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\mandjah\Documents\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGameContent\</RootDirectory>
+      <LoggerRootDirectory>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\</LoggerRootDirectory>
+      <IntermediateDirectory>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>E:\Telerik\GitHub\NoTitleGame\NoTitleGame\NoTitleGame\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
-        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
         <Value>2011-09-01T17:22:30+03:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
         <Value>2011-09-01T17:22:30+03:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
         <Value>2011-09-01T17:22:30+03:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
         <Value>2011-09-01T17:22:30+03:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
         <Value>2011-09-01T17:22:30+03:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
         <Value>2011-09-01T17:22:30+03:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-02-15T22:47:03.517816+02:00</Value>
+        <Value>2014-02-22T16:05:11.404948+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

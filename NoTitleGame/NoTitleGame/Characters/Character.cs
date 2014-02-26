@@ -8,9 +8,9 @@
     using ActiveItems;
     using Exceptions;
     using NoTitleGame;
-    
+    using Interfaces;
     using Microsoft.Xna.Framework.Audio;
-    
+
     public abstract class Character : GameObject, IAnimate, IMoveable, ISound
     {
         //CONSTANTS
@@ -38,10 +38,10 @@
         private int experience;                 //needed for leveling
         public List<ActiveItem> Inventory;      //how many weapons the char has
         private ActiveItemType selectedWeapon;  //which weapon the char will fire
-        private float angle;
-        private float power;
-        private bool isAlive; //no need for a field it's only a property
-        
+        private float angle;                    //the angle with which the char fires
+        private float power;                    //the power with which the char fires
+        private bool isAlive;                   //self-explanatory
+
         //Variables needed for jumping
         private bool isJumping;     //Determines wether the char is jumping
         private int jumpspeed;      //How fast the char jumps
@@ -77,10 +77,10 @@
             get { return this.colourArray; }
             set { this.colourArray = value; }
         }
-        public int Strength 
+        public int Strength
         {
             get { return this.strength; }
-            set { this.strength = value; } 
+            set { this.strength = value; }
         }
         public int MaxHealth
         {
@@ -212,9 +212,9 @@
 
         // Empty constructor
         public Character()
-        { 
+        {
         }
-        
+
         //Constructor---
 
         //Methods
@@ -224,7 +224,7 @@
             //Initialize
             ActiveItem itemToAdd = null;
             //Check what to add
-            if ( type == ActiveItemType.Bazooka)
+            if (type == ActiveItemType.Bazooka)
             {
                 itemToAdd = new Bazooka(this.PositionX, this.PositionY);
             }
@@ -244,11 +244,11 @@
         {
             foreach (var item in this.Inventory)
             {
-               if (item.Type == this.SelectedWeapon)
-               {
-                   item.PositionX = this.PositionX;
-                   item.PositionY = this.PositionY;
-               }
+                if (item.Type == this.SelectedWeapon)
+                {
+                    item.PositionX = this.PositionX;
+                    item.PositionY = this.PositionY;
+                }
             }
         }
 
@@ -417,7 +417,7 @@
                     this.PositionY = Terrain.terrainContour[(int)this.PositionX];
                 }
             }
-            
+
             //Move right
             if (this.keybState.IsKeyDown(Keys.Right))
             {
@@ -454,7 +454,6 @@
                     this.IsJumping = false;
                 }
             }
-
             else
             {
                 if (this.keybState.IsKeyDown(Keys.Enter))

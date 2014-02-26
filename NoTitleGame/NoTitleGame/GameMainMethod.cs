@@ -1,4 +1,3 @@
-
 namespace NoTitleGame
 {
     using System;

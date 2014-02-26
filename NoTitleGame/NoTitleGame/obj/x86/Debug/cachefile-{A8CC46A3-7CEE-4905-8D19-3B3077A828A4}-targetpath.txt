@@ -3,9 +3,10 @@ Content\ground.xnb
 Content\nssheet.xnb
 Content\progressBar.xnb
 Content\UIBack.xnb
-Content\jump.xnb
-Content\Font.xnb
 Content\rocket.xnb
 Content\smoke.xnb
 Content\explosion.xnb
 Content\checkCharCollision.xnb
+Content\jump.xnb
+Content\Font.xnb
+Content\inventory.xnb

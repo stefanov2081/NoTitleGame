@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Characters;
-using Microsoft.Xna.Framework;
-
-namespace NoTitleGame
+﻿namespace NoTitleGame
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Characters;
+    using Microsoft.Xna.Framework;
     public class TurnInfo
     {
         // Fields

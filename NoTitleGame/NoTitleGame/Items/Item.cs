@@ -9,6 +9,7 @@
         protected const int DAMAGE_DONE_BY_SHOTGUN = 10;
         protected const int AMOUNT_OF_HEALTH_FROM_A_HEALTHPACK = 25;
         protected const int AMOUNT_OF_SHIELD_FROM_A_FULLBODYSHIELD = 40;
+
         //Fields
         private Texture2D itemTexture;
 
@@ -20,8 +21,7 @@
         }
 
         //Methods
-        //TODO: 
-        //Something about the textures in the constructor
+        //Constructor
         public Item(int positionX, int positionY, string name) : base(positionX, positionY, name) { }
     }
 }

@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-namespace NoTitleGame
+﻿namespace Interfaces
 {
+    using Microsoft.Xna.Framework;
     interface IAnimate
     {
         // Fields with automatic properties

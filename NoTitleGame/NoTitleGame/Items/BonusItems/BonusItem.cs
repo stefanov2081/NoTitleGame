@@ -7,9 +7,7 @@
         //Fields
         Bonus statToImprove;        //Which stat the bonus upgrades
         int valueOfImprovement;     //The value with which it increases it
-        //Example - Health Pack - stat to improve: health; value: 20
-        //So the health pack gives 20 health
-
+        
         //Properties
         public Bonus StatToImprove
         {

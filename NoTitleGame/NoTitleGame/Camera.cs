@@ -3,7 +3,6 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
-
     class Camera
     {
         // Camera fields
@@ -81,24 +80,6 @@
             {
                 this.Zoom -= 0.01f;
             }
-            // These do not work ... camera is following the character...
-            //else if (Keyboard.GetState().IsKeyDown(Keys.A))
-            //{
-            //    cameraPosition.Y += 5f;
-            //}
-            //else if (Keyboard.GetState().IsKeyDown(Keys.D))
-            //{
-            //    cameraPosition.Y -= 5f;
-            //}
-            //else if (Keyboard.GetState().IsKeyDown(Keys.W))
-            //{
-            //    cameraPosition.X -= 5f;
-            //}
-            //else if (Keyboard.GetState().IsKeyDown(Keys.S))
-            //{
-            //    cameraPosition.X += 5f;
-            //}
-
         }
     }
 }

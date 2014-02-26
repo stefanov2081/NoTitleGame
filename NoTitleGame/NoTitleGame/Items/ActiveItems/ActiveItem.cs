@@ -20,6 +20,7 @@
             get { return this.type; }
             set { this.type = value; }
         }
+
         //Methods
         public ActiveItem(int positionX, int positionY, string name, int damage, ActiveItemType type) : base(positionX, positionY, name) 
         {

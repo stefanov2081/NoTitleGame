@@ -1,14 +1,12 @@
 ﻿namespace Exceptions
 {
-    using Microsoft.Xna.Framework.GamerServices;
     using System;
-    using System.Collections.Generic;
     class CharacterHasDiedException : Exception
     {
-        public CharacterHasDiedException(string msg) : base(msg) 
-        {
-            
-        }
+        // Default constructor
+        public CharacterHasDiedException(string msg) : base(msg) { }
+
+        // Constructor with inner exception
         public CharacterHasDiedException(string msg, Exception innerEx) : base(msg, innerEx) { }
     }
 }

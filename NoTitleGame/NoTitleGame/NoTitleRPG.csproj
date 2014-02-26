@@ -78,17 +78,20 @@
     <Compile Include="Characters\Master.cs" />
     <Compile Include="Characters\Knight.cs" />
     <Compile Include="Characters\Padawan.cs" />
+    <Compile Include="CursorCoordinates.cs" />
     <Compile Include="DrawRectangle.cs" />
     <Compile Include="Exceptions\CharacterHasDiedException.cs" />
     <Compile Include="Explosions.cs" />
     <Compile Include="Foreground.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="IAnimate.cs" />
-    <Compile Include="IMoveable.cs" />
-    <Compile Include="ICollidable.cs" />
+    <Compile Include="Interfaces\IAnimate.cs" />
+    <Compile Include="Interfaces\IClickable.cs" />
+    <Compile Include="Interfaces\IMoveable.cs" />
+    <Compile Include="Interfaces\ICollidable.cs" />
     <Compile Include="Characters\Initiate.cs" />
-    <Compile Include="ISound.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="Interfaces\ISound.cs" />
     <Compile Include="Items\ActiveItems\ActiveItem.cs" />
     <Compile Include="Items\ActiveItems\Bazooka.cs" />
     <Compile Include="Items\ActiveItems\ActiveItemEnumeration.cs" />
@@ -114,9 +117,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NoTitleGameContent\NoTitleGameContent.contentproj">
-      <Name>NoTitleGameContent</Name>
+    <ProjectReference Include="..\NoTitleGameContent\NoTitleRPGContent.contentproj">
+      <Name>NoTitleRPGContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{A8CC46A3-7CEE-4905-8D19-3B3077A828A4}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +146,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="NoTitleGameClassDiagram.cd" />
+    <None Include="NoTitleRPGClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

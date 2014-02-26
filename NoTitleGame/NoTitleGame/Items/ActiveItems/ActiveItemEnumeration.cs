@@ -1,6 +1,6 @@
 ﻿namespace ActiveItems
 {
-    //Bonuses that bonus items give
+    //Active items by type
     public enum ActiveItemType
     {
         Bazooka,
