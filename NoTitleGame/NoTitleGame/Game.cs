@@ -9,7 +9,7 @@ namespace NoTitleGame
     using System;
     using System.Runtime.InteropServices;
     using Characters;
-    
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -51,7 +51,7 @@ namespace NoTitleGame
         // Declare user interface rectangle and background pixel
         DrawRectangle UIBackground;
         DrawRectangle progressBar;
-        
+
         SpriteFont font;
 
         // Default graphics device
@@ -59,19 +59,19 @@ namespace NoTitleGame
         SpriteBatch spriteBatch;
 
         // Declare test character's inventory
- 		Inventory vaderInventory;
- 		
- 		// Declare mouse fields
- 		CursorCoordinates mouseCoords;
- 		Rectangle mouseRectangle;
- 		MouseState currentMouseState;
- 		MouseState previousMouseState;
- 		
- 		// Delegate definition of the event
- 		public delegate void FiredEvent(object sender);
- 		
- 		// Instances of delegate event
- 		public FiredEvent OnMouseClick;
+        Inventory vaderInventory;
+
+        // Declare mouse fields
+        CursorCoordinates mouseCoords;
+        Rectangle mouseRectangle;
+        MouseState currentMouseState;
+        MouseState previousMouseState;
+
+        // Delegate definition of the event
+        public delegate void FiredEvent(object sender);
+
+        // Instances of delegate event
+        public FiredEvent OnMouseClick;
 
         public Game()
         {
@@ -115,7 +115,8 @@ namespace NoTitleGame
             random = new Random();
 
             // Load game world
-            world = new GameWorld(device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
+            //world = new GameWorld(device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
+            world = new GameWorld(2048, 1024);
 
             // Load background
             background = new Background(world.Width, world.Height);
@@ -131,14 +132,20 @@ namespace NoTitleGame
             foreground.CreateForeground();
 
             // Load test character
-            darthVader = new Master(0, 0, "Darth Vader", 999, 999, 999, 999, 15, 0);
+            darthVader = new Master(0, 0, "Darth Vader", 100, 100, 100, 100, 15, 0);
             darthVader.CharacterTexture = Content.Load<Texture2D>("nssheet");
             darthVader.CrosshairTexture = Content.Load<Texture2D>("crosshair");
             darthVader.CrosshairTextureL = Content.Load<Texture2D>("crosshairLeft");
+            darthVader.Width = 55;
+            darthVader.Heigth = 58;
             darthVader.JumpSound = Content.Load<SoundEffect>("jump");
 
-            lukeSkywallker = new Master(0, 0, "Luke Skywallker", 888, 888, 888, 888, 14, 0);
+            lukeSkywallker = new Master(0, 0, "Luke Skywallker", 100, 100, 100, 100, 14, 0);
             lukeSkywallker.CharacterTexture = Content.Load<Texture2D>("nssheet");
+            lukeSkywallker.CrosshairTexture = Content.Load<Texture2D>("crosshair");
+            lukeSkywallker.CrosshairTextureL = Content.Load<Texture2D>("crosshairLeft");
+            lukeSkywallker.Width = darthVader.Width;
+            lukeSkywallker.Heigth = darthVader.Heigth;
             lukeSkywallker.JumpSound = Content.Load<SoundEffect>("jump");
 
             turnInfo = new TurnInfo(2);
@@ -149,7 +156,8 @@ namespace NoTitleGame
             checkCharColl = Content.Load<Texture2D>("checkCharCollision");
 
             // Load test rocket and smoke trail
-            rocket = new Projectlie(new Vector2(0, 0), 0.1f, 1.0f);
+            rocket = new Projectlie(
+                new Vector2(turnInfo.Players[turnInfo.CurrentPlayer].PositionX, turnInfo.Players[turnInfo.CurrentPlayer].PositionY), 0.1f, 1.0f);
             rocket.ProjectileTexture = Content.Load<Texture2D>("rocket");
             rocket.SmokeTexture = Content.Load<Texture2D>("smoke");
 
@@ -178,13 +186,13 @@ namespace NoTitleGame
             camera = new Camera(GraphicsDevice.Viewport);
 
             // Load inventory
- 		    vaderInventory = new Inventory(device, Content.Load<Texture2D>("inventory"), 990, 300);
- 		    
- 		    // Inventory starts listening to events
- 		    vaderInventory.OnMouseClick += new FiredEvent(vaderInventory.MouseClick);
- 		
- 		    // Load mouse state
- 		    currentMouseState = Mouse.GetState();
+            vaderInventory = new Inventory(device, Content.Load<Texture2D>("inventory"), 990, 300);
+
+            // Inventory starts listening to events
+            vaderInventory.OnMouseClick += new FiredEvent(vaderInventory.MouseClick);
+
+            // Load mouse state
+            currentMouseState = Mouse.GetState();
         }
 
         /// <summary>
@@ -243,20 +251,21 @@ namespace NoTitleGame
 
             if (Explosions.particleList.Count > 0)
             {
-                Explosions. UpdateParticles(gameTime);
+                Explosions.UpdateParticles(gameTime);
             }
-            
+
             try
             {
-                darthVader.ProcessKeyboard(darthVader, rocket);
+                turnInfo.Players[turnInfo.CurrentPlayer].ProcessKeyboard(turnInfo.Players[turnInfo.CurrentPlayer], rocket);
+                //darthVader.ProcessKeyboard(darthVader, rocket);
             }
             catch (CharacterHasDiedException)
             {
             }
-            
+
             // Follow camera
-            camera.Update(new Vector2(darthVader.PositionX, darthVader.PositionY));
-            camera.UpdateCameraPosition(new Vector2(darthVader.PositionX, darthVader.PositionY));
+            camera.Update(new Vector2(turnInfo.Players[turnInfo.CurrentPlayer].PositionX, turnInfo.Players[turnInfo.CurrentPlayer].PositionY));
+            camera.UpdateCameraPosition(new Vector2(turnInfo.Players[turnInfo.CurrentPlayer].PositionX, turnInfo.Players[turnInfo.CurrentPlayer].PositionY));
 
             base.Update(gameTime);
         }
@@ -284,30 +293,44 @@ namespace NoTitleGame
             spriteBatch.Draw(foreground.GeneratedForeground, world.GameWorldDimensions, Color.White);
             // Draw test characters
             // Dart Vader
-            spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.SourceRect, Color.White, 0,
-                   new Vector2(55 / 2, 58), darthVader.Scale, SpriteEffects.None, 0);
+            if (darthVader.IsAlive)
+            {
+                spriteBatch.Draw(darthVader.CharacterTexture, new Vector2(darthVader.PositionX, darthVader.PositionY), darthVader.SourceRect, Color.White, 0,
+                       new Vector2(55 / 2, 58), darthVader.Scale, SpriteEffects.None, 0);
+            }
             // Luke Skywallker
-            spriteBatch.Draw(lukeSkywallker.CharacterTexture, new Vector2(lukeSkywallker.PositionX, lukeSkywallker.PositionY),
-                lukeSkywallker.SourceRect, Color.White, 0, new Vector2(55 / 2, 58), lukeSkywallker.Scale, SpriteEffects.None, 0);
+            if (lukeSkywallker.IsAlive)
+            {
+                spriteBatch.Draw(lukeSkywallker.CharacterTexture, new Vector2(lukeSkywallker.PositionX, lukeSkywallker.PositionY),
+                    lukeSkywallker.SourceRect, Color.White, 0, new Vector2(55 / 2, 58), lukeSkywallker.Scale, SpriteEffects.None, 0);
+            }
 
             // Crosshair
-            if (darthVader.FacingRight)
+            if (turnInfo.Players[turnInfo.CurrentPlayer].FacingRight)
             {
 
-                spriteBatch.Draw(darthVader.CrosshairTexture,
-                    new Rectangle((int)(darthVader.PositionX), (int)(darthVader.PositionY - 50 * darthVader.Scale), 80, 20),
-                    new Rectangle(0, 0, darthVader.CrosshairTexture.Width, darthVader.CrosshairTexture.Height), Color.Yellow,
-                    darthVader.Angle - 1.57079632f,
-                    new Vector2(0, darthVader.CrosshairTexture.Height / 2), SpriteEffects.None, 0);
+                spriteBatch.Draw(turnInfo.Players[turnInfo.CurrentPlayer].CrosshairTexture,
+                    new Rectangle((int)(turnInfo.Players[turnInfo.CurrentPlayer].PositionX),
+                        (int)(turnInfo.Players[turnInfo.CurrentPlayer].PositionY - 50 * turnInfo.Players[turnInfo.CurrentPlayer].Scale), 80, 20),
+                    new Rectangle(0, 0, turnInfo.Players[turnInfo.CurrentPlayer].CrosshairTexture.Width,
+                        turnInfo.Players[turnInfo.CurrentPlayer].CrosshairTexture.Height), Color.Yellow,
+                    turnInfo.Players[turnInfo.CurrentPlayer].Angle - 1.57079632f,
+                    new Vector2(0, turnInfo.Players[turnInfo.CurrentPlayer].CrosshairTexture.Height / 2), SpriteEffects.None, 0);
             }
             else
             {
-                spriteBatch.Draw(darthVader.CrosshairTextureL,
-                    new Rectangle((int)(darthVader.PositionX - 20), (int)(darthVader.PositionY - 50 * darthVader.Scale), 80, 20),
-                    new Rectangle(0, 0, darthVader.CrosshairTexture.Width, darthVader.CrosshairTexture.Height), Color.Yellow,
-                    -(darthVader.Angle - 1.57079632f),
-                    new Vector2(darthVader.CrosshairTextureL.Width, darthVader.CrosshairTextureL.Height / 2), SpriteEffects.None, 0);
+                spriteBatch.Draw(turnInfo.Players[turnInfo.CurrentPlayer].CrosshairTextureL,
+                    new Rectangle((int)(turnInfo.Players[turnInfo.CurrentPlayer].PositionX - 20),
+                        (int)(turnInfo.Players[turnInfo.CurrentPlayer].PositionY - 50 * darthVader.Scale), 80, 20),
+                    new Rectangle(0, 0, turnInfo.Players[turnInfo.CurrentPlayer].CrosshairTexture.Width,
+                        turnInfo.Players[turnInfo.CurrentPlayer].CrosshairTexture.Height), Color.Yellow,
+                    -(turnInfo.Players[turnInfo.CurrentPlayer].Angle - 1.57079632f),
+                    new Vector2(turnInfo.Players[turnInfo.CurrentPlayer].CrosshairTextureL.Width,
+                        turnInfo.Players[turnInfo.CurrentPlayer].CrosshairTextureL.Height / 2), SpriteEffects.None, 0);
             }
+
+            // Power bar
+            DirectDraw.DrawPowerBar(turnInfo.Players[turnInfo.CurrentPlayer], progressBar.Pixel, spriteBatch);
             spriteBatch.End();
 
             if (rocket.ProjectileFlying)
@@ -326,8 +349,8 @@ namespace NoTitleGame
 
             // Draw stats
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-            DirectDraw.DrawBottomStats(UIBackground, progressBar, darthVader, graphics, device, spriteBatch, font);
-            
+            DirectDraw.DrawBottomStats(UIBackground, progressBar, turnInfo.Players[turnInfo.CurrentPlayer], graphics, device, spriteBatch, font);
+
             // Draw test character's inventory
             DirectDraw.DrawInventory(vaderInventory, device, spriteBatch);
             spriteBatch.End();

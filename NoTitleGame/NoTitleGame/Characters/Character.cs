@@ -156,7 +156,7 @@
         }
         public bool IsAlive
         {
-            get { return this.isAlive; }
+            get { return this.currentHealth > 0; }
             set { this.isAlive = value; }
         }
         public bool IsJumping
@@ -169,18 +169,18 @@
             get { return this.selectedWeapon; }
             set { this.selectedWeapon = value; }
         }
-
         public float Angle
         {
             get { return this.angle; }
             set { this.angle = value; }
         }
-
         public float Power
         {
             get { return this.power; }
             set { this.power = value; }
         }
+        public int Width { get; set; }
+        public int Heigth { get; set; }
 
         //Constructor
         public Character(int positionX, int positionY, string name, int strength, int agility,

@@ -42,6 +42,7 @@
             get { return this.pixel; }
             set { this.pixel = value; }
         }
+
         //Methods
         //Constructor
         public Inventory(GraphicsDevice device, Texture2D pixel, int x, int y)

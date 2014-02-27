@@ -3,6 +3,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Characters;
+
     public static class DirectDraw
     {
         // Draw anywhere
@@ -123,7 +124,7 @@
             GraphicsDevice device, SpriteBatch spriteBatch, SpriteFont font)
         {
             // Set the position and dimensions of info boxes bars
-            int infoBoxWidth = device.PresentationParameters.BackBufferWidth / 8;
+            int infoBoxWidth = device.PresentationParameters.BackBufferWidth / 7;
             int infoBoxHeight = device.PresentationParameters.BackBufferHeight / 15;
             int infoBoxX = device.PresentationParameters.BackBufferWidth / 2 + device.PresentationParameters.BackBufferWidth / 3;
             int infoBoxY = device.PresentationParameters.BackBufferHeight - (device.PresentationParameters.BackBufferHeight / 2 -
@@ -169,7 +170,7 @@
 
                 // Draw level info
                 DrawToBottom(levelInfo, levelInfo.Height, Color.White, infoBox.Pixel, spriteBatch);
-                spriteBatch.DrawString(font, "Level: " + currentChar.Level.ToString(), new Vector2(levelInfo.X + 2, levelInfo.Y + 14), Color.Black);
+                spriteBatch.DrawString(font, "XP: " + currentChar.Experience.ToString(), new Vector2(levelInfo.X + 2, levelInfo.Y + 14), Color.Black);
 
                 // Armor info
                 DrawToBottom(armorInfo, armorInfo.Height, Color.White, infoBox.Pixel, spriteBatch);
@@ -180,9 +181,21 @@
             {
                 spriteBatch.DrawString(font, currentChar.Name, new Vector2(nameInfo.X, nameInfo.Y), Color.Black);
                 spriteBatch.DrawString(font, currentChar.SelectedWeapon.ToString(), new Vector2(weaponInfo.X, weaponInfo.Y), Color.Black);
-                spriteBatch.DrawString(font, "Level: " + currentChar.Level.ToString(), new Vector2(levelInfo.X, levelInfo.Y), Color.Black);
+                spriteBatch.DrawString(font, "XP: " + currentChar.Experience.ToString(), new Vector2(levelInfo.X, levelInfo.Y), Color.Black);
                 spriteBatch.DrawString(font, "Armor: " + currentChar.Armor.ToString(), new Vector2(armorInfo.X, armorInfo.Y), Color.Black);
             }
+        }
+
+        // Draw power bar above the head of the character
+        public static void DrawPowerBar(Character currPlayer, Texture2D progressBar, SpriteBatch spriteBatch)
+        {
+            int infoBoxWidth = currPlayer.Width / 2 * (int)currPlayer.Power / 1000;
+            int infoBoxHeight = currPlayer.Heigth / 6;
+            int infoBoxX = currPlayer.PositionX - currPlayer.Width / 10;
+            int infoBoxY = currPlayer.PositionY - currPlayer.Heigth - currPlayer.Heigth / 2;
+
+            DrawAnywhere(new Rectangle(infoBoxX, infoBoxY, infoBoxWidth, infoBoxHeight), 
+                infoBoxHeight, Color.GreenYellow, progressBar, spriteBatch, infoBoxX, infoBoxY, infoBoxWidth, infoBoxHeight);
         }
     }
 }

@@ -5,6 +5,7 @@
     using System.Linq;
     using Characters;
     using Microsoft.Xna.Framework;
+
     public class TurnInfo
     {
         // Fields
@@ -50,14 +51,14 @@
 
         public void CheckCollisions(GameTime gameTime, Projectlie currProj, Random random, TurnInfo info, Foreground foreground, GameWorld world)
         {
-            Vector2 terrainCollisionPoint = CheckTerrainCollision(currProj, foreground);
+            Vector2 terrainCollisionPoint = CheckTerrainCollision(currProj);
             Vector2 playerCollisionPoint = CheckPlayersCollision(currProj);
             bool projectileOutOfScreen = CheckOutOfScreen(currProj);
 
             if (playerCollisionPoint.X > -1)
             {
                 //Play.Sound();
-                Explosions.AddExplosion(playerCollisionPoint, 10, 80.0f, 2000.0f, gameTime, random, Explosions.explosion, info, foreground, world);
+                Explosions.AddExplosion(playerCollisionPoint, 12, 90.0f, 2000.0f, gameTime, random, Explosions.explosion, info, foreground, world);
 
                 currProj.ProjectileFlying = false;
 
@@ -68,7 +69,7 @@
             if (terrainCollisionPoint.X > -1)
             {
                 //Play.Sound();
-                Explosions.AddExplosion(terrainCollisionPoint, 4, 30.0f, 1000.0f, gameTime, random, Explosions.explosion, info, foreground, world);
+                Explosions.AddExplosion(terrainCollisionPoint, 6, 50.0f, 1400.0f, gameTime, random, Explosions.explosion, info, foreground, world);
 
                 currProj.ProjectileFlying = false;
 
@@ -88,51 +89,59 @@
         // Detect collision between projectile and player
         private Vector2 CheckPlayersCollision(Projectlie currProj)
         {
-            Matrix rocketMat = Matrix.CreateTranslation(-42, -240, 0) * Matrix.CreateRotationZ(currProj.ProjectileAngle) * 
-                Matrix.CreateScale(currProj.ProjectileScaling) * Matrix.CreateTranslation(currProj.ProjectilePosition.X, currProj.ProjectilePosition.Y, 0);
             for (int i = 0; i < numberOfPlayers; i++)
             {
-                Character player = players[i];
+                Character player = Players[i];
 
                 if (player.IsAlive)
                 {
                     if (i != currentPlayer)
                     {
-                        int xPos = (int)player.PositionX;
-                        int yPos = (int)player.PositionY;
-
-                        Matrix playerMat = Matrix.CreateTranslation(0, -player.CharacterTexture.Height, 0) * Matrix.CreateScale(player.Scale) *
-                            Matrix.CreateTranslation(xPos, yPos, 0);
-                        Vector2 playerCollisionPoint = TexturesCollide(player.ColourArray, playerMat, currProj.ColourArray, rocketMat);
+                        Vector2 playerCollisionPoint = ObjectsCollide(player, currProj);
 
                         if (playerCollisionPoint.X > -1)
                         {
-                            players[i].IsAlive = false;
+                            int damage = (int)Players[CurrentPlayer].Power / 20 + 50 - (player.Armor / 10);
+                            int damageLeft = damage - player.CurrentShield;
+
+                            if (player.CurrentShield > 0)
+                            {
+                                player.CurrentShield -= damage;
+                            }
+                            if (damageLeft > 0)
+                            {
+                                player.CurrentShield = 0;
+                                player.CurrentHealth -= damageLeft;
+                            }
+
+                            Players[CurrentPlayer].Experience += damage;
                             return playerCollisionPoint;
                         }
                     }
                 }
             }
+
             return new Vector2(-1, -1);
         }
 
         // Detect collision between projectile and ground
-        private Vector2 CheckTerrainCollision(Projectlie currProj, Foreground foreground)
+        private Vector2 CheckTerrainCollision(Projectlie currProj)
         {
-            Matrix rocketMat = Matrix.CreateTranslation(-42, -240, 0) * Matrix.CreateRotationZ(currProj.ProjectileAngle) * 
-                Matrix.CreateScale(currProj.ProjectileScaling) *
-                Matrix.CreateTranslation(currProj.ProjectilePosition.X, currProj.ProjectilePosition.Y, 0);
-            Matrix terrainMat = Matrix.Identity;
-            Vector2 terrainCollisionPoint = TexturesCollide(currProj.ColourArray, rocketMat, foreground.colourArray, terrainMat);
-            return terrainCollisionPoint;
+            if (currProj.ProjectilePosition.X > 0 && currProj.ProjectilePosition.X < Terrain.terrainContour.Length - 1)
+            {
+                if ((int)currProj.ProjectilePosition.Y >= Terrain.terrainContour[(int)currProj.ProjectilePosition.X])
+                {
+                    return new Vector2(currProj.ProjectilePosition.X, currProj.ProjectilePosition.Y);
+                }
+            }
+
+            return new Vector2(-1, -1);
         }
 
         // Check if the projectile is out of screen
         private bool CheckOutOfScreen(Projectlie currProj)
         {
             bool rocketOutOfScreen = currProj.ProjectilePosition.Y > 1024;
-            rocketOutOfScreen |= currProj.ProjectilePosition.X < 0;
-            rocketOutOfScreen |= currProj.ProjectilePosition.X > 800;
 
             return rocketOutOfScreen;
         }
@@ -169,6 +178,21 @@
                             }
                         }
                     }
+                }
+            }
+
+            return new Vector2(-1, -1);
+        }
+
+        private Vector2 ObjectsCollide(Character player, Projectlie proj)
+        {
+            if (proj.ProjectilePosition.X > player.PositionX - player.Width / 2 &&
+                proj.ProjectilePosition.X < player.PositionX + player.Width / 2)
+            {
+                if (proj.ProjectilePosition.Y < player.PositionY &&
+                    proj.ProjectilePosition.Y > player.PositionY - player.Heigth)
+                {
+                    return new Vector2(player.PositionX, player.PositionY);
                 }
             }
 
